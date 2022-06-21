@@ -3,14 +3,13 @@ import time
 
 from pymodbus.client.sync import ModbusTcpClient
 
-from main.datatypes import decode
-from main.registers import MeterEquipmentRegister
+from sun2000_modbus.datatypes import decode
+from sun2000_modbus.registers import InverterEquipmentRegister
 
 logging.basicConfig(level=logging.INFO)
 
 
 class Sun2000:
-
     def __init__(self, host, port=502, timeout=5, wait=2, slave=0):
         self.wait = wait
         self.connected = False
@@ -28,7 +27,7 @@ class Sun2000:
     def read_raw_value(self, register):
         register_value = self.inverter.read_holding_registers(register.value.address, register.value.quantity)
 
-        return decode(register_value.encode()[1:], register.value.type)
+        return decode(register_value.encode()[1:], register.value.data_type)
 
     def read(self, register):
         raw_value = self.read_raw_value(register)
@@ -50,6 +49,10 @@ class Sun2000:
 #### Testing
 inv = Sun2000("192.168.200.1", 6607, slave=1)
 inv.connect()
-for register in MeterEquipmentRegister:
-    print(f'{register.name}: {inv.read_formatted(register)}')
-# print(f'MaximumReactivePowerAbsorbedFromTheGrid: {inv.read_formatted(InverterEquipmentRegister.State1)}')
+# for register in InverterEquipmentRegister:
+#     print(f'{register.name}: {inv.read_formatted(register)}')
+# for register in BatteryEquipmentRegister:
+#     print(f'{register.name}: {inv.read_formatted(register)}')
+# for register in MeterEquipmentRegister:
+#     print(f'{register.name}: {inv.read_formatted(register)}')
+print(f'MaximumReactivePowerAbsorbedFromTheGrid: {inv.read_formatted(InverterEquipmentRegister.State1)}')

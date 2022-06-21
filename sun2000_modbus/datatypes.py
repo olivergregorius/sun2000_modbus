@@ -28,8 +28,8 @@ def decode_bitfield(value):
     return ''.join(format(byte, '08b') for byte in value)
 
 
-def decode(value, type):
-    match type:
+def decode(value, data_type):
+    match data_type:
         case DataType.STRING:
             return decode_string(value)
         case DataType.UINT16_BE | DataType.UINT32_BE:

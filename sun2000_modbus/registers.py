@@ -1,6 +1,6 @@
 from enum import Enum
 
-from main.datatypes import DataType, decode
+from sun2000_modbus.datatypes import DataType
 
 
 class AccessType(Enum):
@@ -12,19 +12,19 @@ class AccessType(Enum):
 class Register:
     address: int
     quantity: int
-    type: DataType
+    data_type: DataType
     gain: int
     unit: str
-    accessType: AccessType
+    access_type: AccessType
     enum: str
 
-    def __init__(self, address, quantity, type, gain, unit, accessType, enum):
+    def __init__(self, address, quantity, data_type, gain, unit, access_type, enum):
         self.address = address
         self.quantity = quantity
-        self.type = type
+        self.data_type = data_type
         self.gain = gain
         self.unit = unit
-        self.accessType = accessType
+        self.access_type = access_type
         self.enum = enum
 
 
