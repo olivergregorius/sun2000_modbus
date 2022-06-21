@@ -3,8 +3,8 @@ import time
 
 from pymodbus.client.sync import ModbusTcpClient
 
-from sun2000_modbus.datatypes import decode
-from sun2000_modbus.registers import InverterEquipmentRegister
+from datatypes import decode
+from registers import InverterEquipmentRegister
 
 logging.basicConfig(level=logging.INFO)
 
@@ -55,4 +55,4 @@ inv.connect()
 #     print(f'{register.name}: {inv.read_formatted(register)}')
 # for register in MeterEquipmentRegister:
 #     print(f'{register.name}: {inv.read_formatted(register)}')
-print(f'MaximumReactivePowerAbsorbedFromTheGrid: {inv.read_formatted(InverterEquipmentRegister.State1)}')
+print(f'Model: {inv.read_formatted(InverterEquipmentRegister.Model)}')

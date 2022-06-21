@@ -1,6 +1,6 @@
 from enum import Enum
 
-from sun2000_modbus.datatypes import DataType
+from datatypes import DataType
 
 
 class AccessType(Enum):
