@@ -2,30 +2,37 @@ import logging
 import time
 
 from pymodbus.client.sync import ModbusTcpClient
+from pymodbus.exceptions import ModbusIOException
 
 from datatypes import decode
-from registers import InverterEquipmentRegister
 
 logging.basicConfig(level=logging.INFO)
 
 
 class Sun2000:
-    def __init__(self, host, port=502, timeout=5, wait=2, slave=0):
+    def __init__(self, host, port=502, timeout=5, wait=2, unit=0):
         self.wait = wait
         self.connected = False
-        self.inverter = ModbusTcpClient(host, port, timeout=timeout, unit_id=slave)
+        self.unit = unit
+        self.inverter = ModbusTcpClient(host, port, timeout=timeout)
 
     def connect(self):
         if not self.connected:
             self.connected = self.inverter.connect()
             time.sleep(self.wait)
             if self.connected:
-                logging.info("Successfully connected to inverter")
+                logging.info('Successfully connected to inverter')
             else:
-                logging.error("Connection to inverter failed")
+                logging.error('Connection to inverter failed')
 
     def read_raw_value(self, register):
-        register_value = self.inverter.read_holding_registers(register.value.address, register.value.quantity)
+        if not self.connected:
+            raise ValueError('Inverter is not connected')
+
+        register_value = self.inverter.read_holding_registers(register.value.address, register.value.quantity, unit=self.unit)
+        if type(register_value) == ModbusIOException:
+            logging.error("Inverter unit did not respond")
+            raise register_value
 
         return decode(register_value.encode()[1:], register.value.data_type)
 
@@ -44,15 +51,3 @@ class Sun2000:
             return f'{value} {register.value.unit}'
         else:
             return value
-
-
-#### Testing
-inv = Sun2000("192.168.200.1", 6607, slave=1)
-inv.connect()
-# for register in InverterEquipmentRegister:
-#     print(f'{register.name}: {inv.read_formatted(register)}')
-# for register in BatteryEquipmentRegister:
-#     print(f'{register.name}: {inv.read_formatted(register)}')
-# for register in MeterEquipmentRegister:
-#     print(f'{register.name}: {inv.read_formatted(register)}')
-print(f'Model: {inv.read_formatted(InverterEquipmentRegister.Model)}')
