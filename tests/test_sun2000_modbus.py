@@ -1,5 +1,3 @@
-import pymodbus.client.sync
-
 from sun2000_modbus.registers import *
 from sun2000_modbus.sun2000_modbus import *
 
