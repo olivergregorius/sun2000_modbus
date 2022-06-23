@@ -43,7 +43,6 @@ jobs:
 
       - name: Publish package
         env:
-          FLIT_INDEX_URL: https://test.pypi.org/legacy/
           FLIT_USERNAME: ${{ secrets.PYPI_USERNAME }}
           FLIT_PASSWORD: ${{ secrets.PYPI_APIKEY }}
         run: |
