@@ -4,7 +4,7 @@ import time
 from pymodbus.client.sync import ModbusTcpClient
 from pymodbus.exceptions import ModbusIOException
 
-from datatypes import decode
+from . import datatypes
 
 logging.basicConfig(level=logging.INFO)
 
@@ -34,7 +34,7 @@ class Sun2000:
             logging.error("Inverter unit did not respond")
             raise register_value
 
-        return decode(register_value.encode()[1:], register.value.data_type)
+        return datatypes.decode(register_value.encode()[1:], register.value.data_type)
 
     def read(self, register):
         raw_value = self.read_raw_value(register)

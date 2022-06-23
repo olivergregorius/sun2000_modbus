@@ -1,9 +1,11 @@
-from sun2000_modbus.registers import *
-from sun2000_modbus.sun2000_modbus import *
-
 import unittest
 from unittest.mock import patch
 import sun2000mock
+
+from pymodbus.exceptions import ModbusIOException
+from sun2000_modbus.sun2000_modbus import Sun2000
+from sun2000_modbus.datatypes import decode, DataType
+from sun2000_modbus.registers import InverterEquipmentRegister
 
 
 class TestDataTypes(unittest.TestCase):

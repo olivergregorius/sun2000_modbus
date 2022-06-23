@@ -1,5 +1,6 @@
 from pymodbus.exceptions import ModbusIOException
 
+
 class MockedResponse:
     def __init__(self, address, quantity):
         self.address = address
