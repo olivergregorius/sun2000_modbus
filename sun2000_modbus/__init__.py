@@ -1,3 +1,3 @@
 """Library for reading Huawei Sun2000 inverter metrics via Modbus TCP"""
 
-__version__ = "0.1.0"
+__version__ = "develop"
