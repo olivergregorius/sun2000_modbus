@@ -19,7 +19,7 @@ jobs:
 
       - name: Set release version
         run: |
-          VERSION=`echo $GITHUB_REF | sed 's#.*\v##'`
+          VERSION=`echo $GITHUB_REF | sed 's#.*/v##'`
           echo "Setting release version to ${VERSION}"
 
           VERSION_STR='__version__ = "develop"'
