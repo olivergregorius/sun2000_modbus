@@ -10,9 +10,9 @@ from sun2000_modbus.registers import InverterEquipmentRegister
 
 class TestDataTypes(unittest.TestCase):
     def test_decode_string(self):
-        value = b'SUN2000-10KTL-M1\x00\x00\x00\x00SUN2000-12'
+        value = b'SUN2000\x00\x00\x00'
         decoded = decode(value, DataType.STRING)
-        self.assertEqual(decoded, 'SUN2000-10KTL-M1\x00\x00\x00\x00SUN2000-12')
+        self.assertEqual(decoded, 'SUN2000')
 
     def test_decode_uint16_be(self):
         value = b'\x04\xD2'
