@@ -21,4 +21,4 @@ dependencies = [
 ]
 
 [project.urls]
-Source = "https://github.com/olivergregorius/sun2000-modbus"
+Source = "https://github.com/olivergregorius/sun2000_modbus"

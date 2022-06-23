@@ -1,9 +1,9 @@
-# sun2000-modbus
+# sun2000_modbus
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/olivergregorius/sun2000-modbus/Python%20Build?label=Python%20Build&logo=github)](https://github.com/olivergregorius/sun2000-modbus/actions/workflows/build.yml)
-[![Python Versions](https://img.shields.io/pypi/pyversions/sun2000-modbus?label=Python)](https://pypi.org/project/sun2000-modbus/)
-[![GitHub](https://img.shields.io/github/license/olivergregorius/sun2000-modbus?label=License)](https://github.com/olivergregorius/sun2000-modbus/blob/HEAD/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/sun2000-modbus?label=PyPI)](https://pypi.org/project/sun2000-modbus/)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/olivergregorius/sun2000_modbus/Python%20Build?label=Python%20Build&logo=github)](https://github.com/olivergregorius/sun2000_modbus/actions/workflows/build.yml)
+[![Python Versions](https://img.shields.io/pypi/pyversions/sun2000_modbus?label=Python)](https://pypi.org/project/sun2000_modbus/)
+[![GitHub](https://img.shields.io/github/license/olivergregorius/sun2000_modbus?label=License)](https://github.com/olivergregorius/sun2000_modbus/blob/HEAD/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/sun2000_modbus?label=PyPI)](https://pypi.org/project/sun2000_modbus/)
 
 ## Introduction
 
@@ -12,7 +12,7 @@ to the device's internal Wifi access point. For information about how to connect
 
 ## Usage
 
-sun2000-modbus provides easy and comfortable access to your inverter's Modbus TCP interface. The following example gives a short introduction about how to read
+sun2000_modbus provides easy and comfortable access to your inverter's Modbus TCP interface. The following example gives a short introduction about how to read
 a register:
 
 ```python
