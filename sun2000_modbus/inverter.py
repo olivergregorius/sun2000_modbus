@@ -49,5 +49,7 @@ class Sun2000:
 
         if register.value.unit is not None:
             return f'{value} {register.value.unit}'
+        elif register.value.mapping is not None:
+            return register.value.mapping.get(value, 'undefined')
         else:
             return value

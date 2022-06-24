@@ -60,7 +60,8 @@ Looking at the [above example](#usage) the different methods would return the fo
 
 ## Registers
 
-The following registers are provided by the Sun2000's Modbus interface and can be read accordingly.
+The following registers are provided by the Sun2000's Modbus interface and can be read accordingly. Documentation can be found
+[here](https://javierin.com/wp-content/uploads/sites/2/2021/09/Solar-Inverter-Modbus-Interface-Definitions.pdf).
 
 ### InverterEquipmentRegister
 
@@ -75,8 +76,8 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | RatedPower                              | Number                 | 1000 | kW   |                                    |
 | MaximumActivePower                      | Number                 | 1000 | kW   |                                    |
 | MaximumApparentPower                    | Number                 | 1000 | kVA  |                                    |
-| MaximumReactivePowerFedToTheGrid        | Number                 | 1000 | kVar |                                    |
-| MaximumReactivePowerAbsorbedFromTheGrid | Number                 | 1000 | kVar |                                    |
+| MaximumReactivePowerFedToTheGrid        | Number                 | 1000 | kvar |                                    |
+| MaximumReactivePowerAbsorbedFromTheGrid | Number                 | 1000 | kvar |                                    |
 | State1                                  | Binary String/Bitfield | 1    |      |                                    |
 | State2                                  | Binary String/Bitfield | 1    |      |                                    |
 | State3                                  | Binary String/Bitfield | 1    |      |                                    |
@@ -103,7 +104,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | PhaseCCurrent                           | Number                 | 1000 | A    |                                    |
 | PeakActivePowerOfCurrentDay             | Number                 | 1000 | kW   |                                    |
 | ActivePower                             | Number                 | 1000 | kW   |                                    |
-| ReactivePower                           | Number                 | 1000 | kVar |                                    |
+| ReactivePower                           | Number                 | 1000 | kvar |                                    |
 | PowerFactor                             | Number                 | 1000 |      |                                    |
 | GridFrequency                           | Number                 | 100  | Hz   |                                    |
 | Efficiency                              | Number                 | 100  | %    |                                    |
@@ -133,7 +134,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | ReactivePowerCompensationQS             | Number                 | 1000 |      |                                    |
 | ActivePowerPercentageDerating           | Number                 | 10   | %    |                                    |
 | FixedActivePowerDeratedInW              | Number                 | 1    | W    |                                    |
-| ReactivePowerCompensationAtNight        | Number                 | 1000 | kVar |                                    |
+| ReactivePowerCompensationAtNight        | Number                 | 1000 | kvar |                                    |
 | CosPhiPPnCharacteristicCurve            | Bytestring             | 1    |      |                                    |
 | QUCharacteristicCurve                   | Bytestring             | 1    |      |                                    |
 | PFUCharacteristicCurve                  | Bytestring             | 1    |      |                                    |
@@ -305,12 +306,12 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | BPhaseCurrent             | Number | 100  | A    |
 | CPhaseCurrent             | Number | 100  | A    |
 | ActivePower               | Number | 1    | W    |
-| ReactivePower             | Number | 1    | Var  |
-| PowerFactor               | Number | 1000 | NA   |
+| ReactivePower             | Number | 1    | var  |
+| PowerFactor               | Number | 1000 |      |
 | GridFrequency             | Number | 100  | Hz   |
 | PositiveActiveElectricity | Number | 100  | kWh  |
 | ReverseActivePower        | Number | 100  | kWh  |
-| AccumulatedReactivePower  | Number | 100  | kVar |
+| AccumulatedReactivePower  | Number | 100  | kvar |
 | MeterType                 | Number | 1    |      |
 | ABLineVoltage             | Number | 10   | V    |
 | BCLineVoltage             | Number | 10   | V    |

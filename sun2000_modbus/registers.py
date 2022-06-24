@@ -1,6 +1,7 @@
 from enum import Enum
 
 from . import datatypes
+from . import mappings
 
 
 class AccessType(Enum):
@@ -16,16 +17,16 @@ class Register:
     gain: int
     unit: str
     access_type: AccessType
-    enum: str
+    mapping: dict
 
-    def __init__(self, address, quantity, data_type, gain, unit, access_type, enum):
+    def __init__(self, address, quantity, data_type, gain, unit, access_type, mapping):
         self.address = address
         self.quantity = quantity
         self.data_type = data_type
         self.gain = gain
         self.unit = unit
         self.access_type = access_type
-        self.enum = enum
+        self.mapping = mapping
 
 
 class InverterEquipmentRegister(Enum):
@@ -38,8 +39,8 @@ class InverterEquipmentRegister(Enum):
     RatedPower = Register(30073, 2, datatypes.DataType.UINT32_BE, 1000, "kW", AccessType.RO, None)
     MaximumActivePower = Register(30075, 2, datatypes.DataType.UINT32_BE, 1000, "kW", AccessType.RO, None)
     MaximumApparentPower = Register(30077, 2, datatypes.DataType.UINT32_BE, 1000, "kVA", AccessType.RO, None)
-    MaximumReactivePowerFedToTheGrid = Register(30079, 2, datatypes.DataType.INT32_BE, 1000, "kVar", AccessType.RO, None)
-    MaximumReactivePowerAbsorbedFromTheGrid = Register(30081, 2, datatypes.DataType.INT32_BE, 1000, "kVar", AccessType.RO, None)
+    MaximumReactivePowerFedToTheGrid = Register(30079, 2, datatypes.DataType.INT32_BE, 1000, "kvar", AccessType.RO, None)
+    MaximumReactivePowerAbsorbedFromTheGrid = Register(30081, 2, datatypes.DataType.INT32_BE, 1000, "kvar", AccessType.RO, None)
     State1 = Register(32000, 1, datatypes.DataType.BITFIELD16, 1, None, AccessType.RO, None)
     State2 = Register(32002, 1, datatypes.DataType.BITFIELD16, 1, None, AccessType.RO, None)
     State3 = Register(32003, 2, datatypes.DataType.BITFIELD32, 1, None, AccessType.RO, None)
@@ -66,13 +67,13 @@ class InverterEquipmentRegister(Enum):
     PhaseCCurrent = Register(32076, 2, datatypes.DataType.INT32_BE, 1000, "A", AccessType.RO, None)
     PeakActivePowerOfCurrentDay = Register(32078, 2, datatypes.DataType.INT32_BE, 1000, "kW", AccessType.RO, None)
     ActivePower = Register(32080, 2, datatypes.DataType.INT32_BE, 1000, "kW", AccessType.RO, None)
-    ReactivePower = Register(32082, 2, datatypes.DataType.INT32_BE, 1000, "kVar", AccessType.RO, None)
+    ReactivePower = Register(32082, 2, datatypes.DataType.INT32_BE, 1000, "kvar", AccessType.RO, None)
     PowerFactor = Register(32084, 1, datatypes.DataType.INT16_BE, 1000, None, AccessType.RO, None)
     GridFrequency = Register(32085, 1, datatypes.DataType.UINT16_BE, 100, "Hz", AccessType.RO, None)
     Efficiency = Register(32086, 1, datatypes.DataType.UINT16_BE, 100, "%", AccessType.RO, None)
     InternalTemperature = Register(32087, 1, datatypes.DataType.INT16_BE, 10, "°C", AccessType.RO, None)
     InsulationResistance = Register(32088, 1, datatypes.DataType.UINT16_BE, 1000, "MOhm", AccessType.RO, None)
-    DeviceStatus = Register(32089, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, None)
+    DeviceStatus = Register(32089, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, mappings.DeviceStatus)
     FaultCode = Register(32090, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, None)
     StartupTime = Register(32091, 2, datatypes.DataType.UINT32_BE, 1, None, AccessType.RO, None)
     ShutdownTime = Register(32093, 2, datatypes.DataType.UINT32_BE, 1, None, AccessType.RO, None)
@@ -96,7 +97,7 @@ class InverterEquipmentRegister(Enum):
     ReactivePowerCompensationQS = Register(40123, 1, datatypes.DataType.INT16_BE, 1000, None, AccessType.RW, None)
     ActivePowerPercentageDerating = Register(40125, 1, datatypes.DataType.UINT16_BE, 10, "%", AccessType.RW, None)
     FixedActivePowerDeratedInW = Register(40126, 2, datatypes.DataType.UINT32_BE, 1, "W", AccessType.RW, None)
-    ReactivePowerCompensationAtNight = Register(40129, 2, datatypes.DataType.INT32_BE, 1000, "kVar", AccessType.RW, None)
+    ReactivePowerCompensationAtNight = Register(40129, 2, datatypes.DataType.INT32_BE, 1000, "kvar", AccessType.RW, None)
     CosPhiPPnCharacteristicCurve = Register(40133, 21, datatypes.DataType.MULTIDATA, 1, None, AccessType.RW, None)
     QUCharacteristicCurve = Register(40154, 21, datatypes.DataType.MULTIDATA, 1, None, AccessType.RW, None)
     PFUCharacteristicCurve = Register(40175, 21, datatypes.DataType.MULTIDATA, 1, None, AccessType.RW, None)
@@ -113,8 +114,8 @@ class InverterEquipmentRegister(Enum):
 
 class BatteryEquipmentRegister(Enum):
     # Overall
-    RunningStatus = Register(37762, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, None)
-    WorkingModeSettings = Register(47086, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, None)
+    RunningStatus = Register(37762, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, mappings.RunningStatus)
+    WorkingModeSettings = Register(47086, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, mappings.WorkingModeSettings)
     BusVoltage = Register(37763, 1, datatypes.DataType.UINT16_BE, 10, "V", AccessType.RO, None)
     BusCurrent = Register(37764, 1, datatypes.DataType.INT16_BE, 10, "A", AccessType.RO, None)
     ChargeDischargePower = Register(37765, 2, datatypes.DataType.INT32_BE, 1, "W", AccessType.RO, None)
@@ -133,30 +134,30 @@ class BatteryEquipmentRegister(Enum):
     ChargingCutoffCapacity = Register(47081, 1, datatypes.DataType.UINT16_BE, 10, "%", AccessType.RW, None)
     DischargeCutoffCapacity = Register(47082, 1, datatypes.DataType.UINT16_BE, 10, "%", AccessType.RW, None)
     ForcedChargingAndDischargingPeriod = Register(47083, 1, datatypes.DataType.UINT16_BE, 1, "minutes", AccessType.RW, None)
-    ChargeFromGridFunction = Register(47087, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, None)
+    ChargeFromGridFunction = Register(47087, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, mappings.ChargeFromGridFunction)
     GridChargeCutoffSOC = Register(47088, 1, datatypes.DataType.UINT16_BE, 10, "%", AccessType.RW, None)
-    # ForcibleChargeDischarge = Register(47100, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.WO, None) # disabled because not readable (AccessType.WO)
+    # ForcibleChargeDischarge = Register(47100, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.WO, mappings.ForcibleChargeDischarge) # disabled because not readable (AccessType.WO)
     FixedChargingAndDischargingPeriods = Register(47200, 41, datatypes.DataType.MULTIDATA, 1, None, AccessType.RW, None)
     PowerOfChargeFromGrid = Register(47242, 2, datatypes.DataType.INT32_BE, 100, "kW", AccessType.RW, None)
     MaximumPowerOfChargeFromGrid = Register(47244, 2, datatypes.DataType.INT32_BE, 100, "kW", AccessType.RW, None)
-    ForcibleChargeDischargeSettingMode = Register(47246, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, None)
+    ForcibleChargeDischargeSettingMode = Register(47246, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, mappings.ForcibleChargeDischargeSettingMode)
     ForcibleChargePower = Register(47247, 2, datatypes.DataType.INT32_BE, 100, "kW", AccessType.RW, None)
     ForcibleDischargePower = Register(47249, 2, datatypes.DataType.INT32_BE, 100, "kW", AccessType.RW, None)
     TimeOfUseChargingAndDischargingPeriods = Register(47255, 43, datatypes.DataType.MULTIDATA, 1, None, AccessType.RW, None)
-    ExcessPVEnergyUseInTOU = Register(47299, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, None)
+    ExcessPVEnergyUseInTOU = Register(47299, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, mappings.ExcessPVEnergyUseInTOU)
     MaximumChargeFromGridPower = Register(47590, 2, datatypes.DataType.INT32_BE, 100, "kW", AccessType.RW, None)
-    SwitchToOffGrid = Register(47604, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, None)
-    VoltageInIndependentOperation = Register(47605, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, None)
+    SwitchToOffGrid = Register(47604, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, mappings.SwitchToOffGrid)
+    VoltageInIndependentOperation = Register(47605, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, mappings.VoltageIndependentOperation)
 
     # Unit 1
-    Unit1ProductModel = Register(47000, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, None)
+    Unit1ProductModel = Register(47000, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, mappings.ProductModel)
     Unit1SN = Register(37052, 10, datatypes.DataType.STRING, 1, None, AccessType.RO, None)
     Unit1No = Register(47107, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, None)
     Unit1SoftwareVersion = Register(37814, 15, datatypes.DataType.STRING, 1, None, AccessType.RO, None)
     Unit1DCDCVersion = Register(37026, 10, datatypes.DataType.STRING, 1, None, AccessType.RO, None)
     Unit1BMSVersion = Register(37036, 10, datatypes.DataType.STRING, 1, None, AccessType.RO, None)
-    Unit1RunningStatus = Register(37000, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, None)
-    Unit1WorkingMode = Register(37006, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, None)
+    Unit1RunningStatus = Register(37000, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, mappings.RunningStatus)
+    Unit1WorkingMode = Register(37006, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, mappings.WorkingMode)
     Unit1BusVoltage = Register(37003, 1, datatypes.DataType.UINT16_BE, 10, "V", AccessType.RO, None)
     Unit1BusCurrent = Register(37021, 1, datatypes.DataType.INT16_BE, 10, "A", AccessType.RO, None)
     Unit1BatterySOC = Register(37004, 1, datatypes.DataType.UINT16_BE, 10, "%", AccessType.RO, None)
@@ -172,11 +173,11 @@ class BatteryEquipmentRegister(Enum):
     Unit1FaultID = Register(37014, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, None)
 
     # Unit 2
-    Unit2ProductModel = Register(47089, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, None)
+    Unit2ProductModel = Register(47089, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, mappings.ProductModel)
     Unit2SN = Register(37700, 10, datatypes.DataType.STRING, 1, None, AccessType.RO, None)
     Unit2No = Register(47108, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RW, None)
     Unit2SoftwareVersion = Register(37799, 15, datatypes.DataType.STRING, 1, None, AccessType.RO, None)
-    Unit2RunningStatus = Register(37741, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, None)
+    Unit2RunningStatus = Register(37741, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, mappings.RunningStatus)
     Unit2BusVoltage = Register(37750, 1, datatypes.DataType.UINT16_BE, 10, "V", AccessType.RO, None)
     Unit2BusCurrent = Register(37751, 1, datatypes.DataType.INT16_BE, 10, "A", AccessType.RO, None)
     Unit2BatterySOC = Register(37738, 1, datatypes.DataType.UINT16_BE, 10, "%", AccessType.RO, None)
@@ -273,7 +274,9 @@ class BatteryEquipmentRegister(Enum):
 
 
 class MeterEquipmentRegister(Enum):
-    MeterStatus = Register(37100, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, None)
+    MeterType = Register(37125, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, mappings.MeterType)
+    MeterStatus = Register(37100, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, mappings.MeterStatus)
+    MeterModelDetectionResult = Register(37138, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, mappings.MeterModelDetectionResult)
     APhaseVoltage = Register(37101, 2, datatypes.DataType.INT32_BE, 10, "V", AccessType.RO, None)
     BPhaseVoltage = Register(37103, 2, datatypes.DataType.INT32_BE, 10, "V", AccessType.RO, None)
     CPhaseVoltage = Register(37105, 2, datatypes.DataType.INT32_BE, 10, "V", AccessType.RO, None)
@@ -281,17 +284,15 @@ class MeterEquipmentRegister(Enum):
     BPhaseCurrent = Register(37109, 2, datatypes.DataType.INT32_BE, 100, "A", AccessType.RO, None)
     CPhaseCurrent = Register(37111, 2, datatypes.DataType.INT32_BE, 100, "A", AccessType.RO, None)
     ActivePower = Register(37113, 2, datatypes.DataType.INT32_BE, 1, "W", AccessType.RO, None)
-    ReactivePower = Register(37115, 2, datatypes.DataType.INT32_BE, 1, "Var", AccessType.RO, None)
-    PowerFactor = Register(37117, 1, datatypes.DataType.INT16_BE, 1000, "NA", AccessType.RO, None)
+    ReactivePower = Register(37115, 2, datatypes.DataType.INT32_BE, 1, "var", AccessType.RO, None)
+    PowerFactor = Register(37117, 1, datatypes.DataType.INT16_BE, 1000, None, AccessType.RO, None)
     GridFrequency = Register(37118, 1, datatypes.DataType.INT16_BE, 100, "Hz", AccessType.RO, None)
     PositiveActiveElectricity = Register(37119, 2, datatypes.DataType.INT32_BE, 100, "kWh", AccessType.RO, None)
     ReverseActivePower = Register(37121, 2, datatypes.DataType.INT32_BE, 100, "kWh", AccessType.RO, None)
-    AccumulatedReactivePower = Register(37123, 2, datatypes.DataType.INT32_BE, 100, "kVar", AccessType.RO, None)
-    MeterType = Register(37125, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, None)
+    AccumulatedReactivePower = Register(37123, 2, datatypes.DataType.INT32_BE, 100, "kvar", AccessType.RO, None)
     ABLineVoltage = Register(37126, 2, datatypes.DataType.INT32_BE, 10, "V", AccessType.RO, None)
     BCLineVoltage = Register(37128, 2, datatypes.DataType.INT32_BE, 10, "V", AccessType.RO, None)
     CALineVoltage = Register(37130, 2, datatypes.DataType.INT32_BE, 10, "V", AccessType.RO, None)
     APhaseActivePower = Register(37132, 2, datatypes.DataType.INT32_BE, 1, "W", AccessType.RO, None)
     BPhaseActivePower = Register(37134, 2, datatypes.DataType.INT32_BE, 1, "W", AccessType.RO, None)
     CPhaseActivePower = Register(37136, 2, datatypes.DataType.INT32_BE, 1, "W", AccessType.RO, None)
-    MeterModelDetectionResult = Register(37138, 1, datatypes.DataType.UINT16_BE, 1, None, AccessType.RO, None)
