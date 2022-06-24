@@ -22,6 +22,9 @@ MockedRegisters = {
 
     # State1 - '0000000000000110'
     (32000, 1): b'\x02\x00\x06',
+
+    # DeviceStatus - 512
+    (32089, 1): b'\x02\x02\x00'
 }
 
 

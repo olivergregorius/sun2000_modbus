@@ -184,3 +184,25 @@ class TestSun2000(unittest.TestCase):
         self.test_inverter.connect()
         result = self.test_inverter.read_formatted(InverterEquipmentRegister.State1)
         self.assertEqual(result, '0000000000000110')
+
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+    )
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    def test_read_raw_value_with_mapping(self):
+        self.test_inverter.connect()
+        result = self.test_inverter.read_raw_value(InverterEquipmentRegister.DeviceStatus)
+        self.assertEqual(result, 512)
+
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+    )
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    def test_read_formatted_with_mapping(self):
+        self.test_inverter.connect()
+        result = self.test_inverter.read_formatted(InverterEquipmentRegister.DeviceStatus)
+        self.assertEqual(result, 'On-grid')
