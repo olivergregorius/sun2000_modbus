@@ -60,7 +60,8 @@ Looking at the [above example](#usage) the different methods would return the fo
 
 ## Registers
 
-The following registers are provided by the Sun2000's Modbus interface and can be read accordingly.
+The following registers are provided by the Sun2000's Modbus interface and can be read accordingly. Documentation can be found
+[here](https://javierin.com/wp-content/uploads/sites/2/2021/09/Solar-Inverter-Modbus-Interface-Definitions.pdf).
 
 ### InverterEquipmentRegister
 
