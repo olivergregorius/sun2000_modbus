@@ -5,7 +5,7 @@ import sun2000mock
 from pymodbus.exceptions import ModbusIOException
 from sun2000_modbus.inverter import Sun2000
 from sun2000_modbus.datatypes import decode, DataType
-from sun2000_modbus.registers import InverterEquipmentRegister
+from sun2000_modbus.registers import InverterEquipmentRegister, MeterEquipmentRegister
 
 
 class TestDataTypes(unittest.TestCase):
@@ -206,3 +206,15 @@ class TestSun2000(unittest.TestCase):
         self.test_inverter.connect()
         result = self.test_inverter.read_formatted(InverterEquipmentRegister.DeviceStatus)
         self.assertEqual(result, 'On-grid')
+
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+    )
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    def test_read_returns_float(self):
+        self.test_inverter.connect()
+        result = self.test_inverter.read(MeterEquipmentRegister.ActivePower)
+        self.assertEqual(result, 1000.0)
+        self.assertTrue(isinstance(result, float))

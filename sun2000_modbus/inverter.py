@@ -39,7 +39,7 @@ class Sun2000:
     def read(self, register):
         raw_value = self.read_raw_value(register)
 
-        if register.value.gain == 1:
+        if register.value.gain is None:
             return raw_value
         else:
             return raw_value / register.value.gain
