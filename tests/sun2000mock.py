@@ -11,20 +11,23 @@ class MockedResponse:
 
 
 MockedRegisters = {
-    # Model - 'SUN2000'
+    # InverterEquipmentRegister.Model - 'SUN2000'
     (30000, 15): b'\x1eSUN2000\x00\x00\x00',
 
-    # ModelID - 429
+    # InverterEquipmentRegister.ModelID - 429
     (30070, 1): b'\x02\x01\xad',
 
-    # RatedPower - 10000
+    # InverterEquipmentRegister.RatedPower - 10000
     (30073, 2): b"\x04\x00\x00'\x10",
 
-    # State1 - '0000000000000110'
+    # InverterEquipmentRegister.State1 - '0000000000000110'
     (32000, 1): b'\x02\x00\x06',
 
-    # DeviceStatus - 512
-    (32089, 1): b'\x02\x02\x00'
+    # InverterEquipmentRegister.DeviceStatus - 512
+    (32089, 1): b'\x02\x02\x00',
+
+    # MeterEquipmentRegister.ActivePower - 1000
+    (37113, 2): b'\x04\x03\xe8'
 }
 
 
