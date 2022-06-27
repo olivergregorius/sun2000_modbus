@@ -10,6 +10,10 @@
 This library is intended for reading Huawei Sun2000 inverter metrics from registers via Modbus TCP. Access to the Modbus interface is established by connecting
 to the device's internal Wifi access point. For information about how to connect to this internal AP consult the official documentation of the device.
 
+## Requirements
+
+- Python >= 3.10
+
 ## Usage
 
 sun2000_modbus provides easy and comfortable access to your inverter's Modbus TCP interface. The following example gives a short introduction about how to read
@@ -67,9 +71,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 
 | Name                                    | Type                   | Gain | Unit | Remark                             |
 |-----------------------------------------|------------------------|------|------|------------------------------------|
-| Model                                   | String                 | 1    |      |                                    |
-| SN                                      | String                 | 1    |      |                                    |
-| PN                                      | String                 | 1    |      |                                    |
+| Model                                   | String                 |      |      |                                    |
+| SN                                      | String                 |      |      |                                    |
+| PN                                      | String                 |      |      |                                    |
 | ModelID                                 | Number                 | 1    |      |                                    |
 | NumberOfPVStrings                       | Number                 | 1    |      |                                    |
 | NumberOfMPPTrackers                     | Number                 | 1    |      |                                    |
@@ -78,12 +82,12 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | MaximumApparentPower                    | Number                 | 1000 | kVA  |                                    |
 | MaximumReactivePowerFedToTheGrid        | Number                 | 1000 | kvar |                                    |
 | MaximumReactivePowerAbsorbedFromTheGrid | Number                 | 1000 | kvar |                                    |
-| State1                                  | Binary String/Bitfield | 1    |      |                                    |
-| State2                                  | Binary String/Bitfield | 1    |      |                                    |
-| State3                                  | Binary String/Bitfield | 1    |      |                                    |
-| Alarm1                                  | Binary String/Bitfield | 1    |      |                                    |
-| Alarm2                                  | Binary String/Bitfield | 1    |      |                                    |
-| Alarm3                                  | Binary String/Bitfield | 1    |      |                                    |
+| State1                                  | Binary String/Bitfield |      |      |                                    |
+| State2                                  | Binary String/Bitfield |      |      |                                    |
+| State3                                  | Binary String/Bitfield |      |      |                                    |
+| Alarm1                                  | Binary String/Bitfield |      |      |                                    |
+| Alarm2                                  | Binary String/Bitfield |      |      |                                    |
+| Alarm3                                  | Binary String/Bitfield |      |      |                                    |
 | PV1Voltage                              | Number                 | 10   | V    |                                    |
 | PV1Current                              | Number                 | 100  | A    |                                    |
 | PV2Voltage                              | Number                 | 10   | V    |                                    |
@@ -135,9 +139,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | ActivePowerPercentageDerating           | Number                 | 10   | %    |                                    |
 | FixedActivePowerDeratedInW              | Number                 | 1    | W    |                                    |
 | ReactivePowerCompensationAtNight        | Number                 | 1000 | kvar |                                    |
-| CosPhiPPnCharacteristicCurve            | Bytestring             | 1    |      |                                    |
-| QUCharacteristicCurve                   | Bytestring             | 1    |      |                                    |
-| PFUCharacteristicCurve                  | Bytestring             | 1    |      |                                    |
+| CosPhiPPnCharacteristicCurve            | Bytestring             |      |      |                                    |
+| QUCharacteristicCurve                   | Bytestring             |      |      |                                    |
+| PFUCharacteristicCurve                  | Bytestring             |      |      |                                    |
 | ReactivePowerAdjustmentTime             | Number                 | 1    | s    |                                    |
 | QUPowerPercentageToExitScheduling       | Number                 | 1    | %    |                                    |
 | Startup                                 | Number                 | 1    |      | Write only, not available for read |
@@ -166,7 +170,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | TotalDischarge                         | Number     | 100  | kWh     |                                    |
 | CurrentDayChargeCapacity               | Number     | 100  | kWh     |                                    |
 | CurrentDayDischargeCapacity            | Number     | 100  | kWh     |                                    |
-| TimeOfUseElectricityPricePeriods       | Bytestring | 1    |         |                                    |
+| TimeOfUseElectricityPricePeriods       | Bytestring |      |         |                                    |
 | MaximumChargingPower                   | Number     | 1    | W       |                                    |
 | MaximumDischargingPower                | Number     | 1    | W       |                                    |
 | ChargingCutoffCapacity                 | Number     | 10   | %       |                                    |
@@ -175,23 +179,23 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | ChargeFromGridFunction                 | Number     | 1    |         |                                    |
 | GridChargeCutoffSOC                    | Number     | 10   | %       |                                    |
 | ForcibleChargeDischarge                | Number     | 1    |         | Write only, not available for read |
-| FixedChargingAndDischargingPeriods     | Bytestring | 1    |         |                                    |
+| FixedChargingAndDischargingPeriods     | Bytestring |      |         |                                    |
 | PowerOfChargeFromGrid                  | Number     | 100  | kW      |                                    |
 | MaximumPowerOfChargeFromGrid           | Number     | 100  | kW      |                                    |
 | ForcibleChargeDischargeSettingMode     | Number     | 1    |         |                                    |
 | ForcibleChargePower                    | Number     | 100  | kW      |                                    |
 | ForcibleDischargePower                 | Number     | 100  | kW      |                                    |
-| TimeOfUseChargingAndDischargingPeriods | Bytestring | 1    |         |                                    |
+| TimeOfUseChargingAndDischargingPeriods | Bytestring |      |         |                                    |
 | ExcessPVEnergyUseInTOU                 | Number     | 1    |         |                                    |
 | MaximumChargeFromGridPower             | Number     | 100  | kW      |                                    |
 | SwitchToOffGrid                        | Number     | 1    |         |                                    |
 | VoltageInIndependentOperation          | Number     | 1    |         |                                    |
 | Unit1ProductModel                      | Number     | 1    |         |                                    |
-| Unit1SN                                | String     | 1    |         |                                    |
+| Unit1SN                                | String     |      |         |                                    |
 | Unit1No                                | Number     | 1    |         |                                    |
-| Unit1SoftwareVersion                   | String     | 1    |         |                                    |
-| Unit1DCDCVersion                       | String     | 1    |         |                                    |
-| Unit1BMSVersion                        | String     | 1    |         |                                    |
+| Unit1SoftwareVersion                   | String     |      |         |                                    |
+| Unit1DCDCVersion                       | String     |      |         |                                    |
+| Unit1BMSVersion                        | String     |      |         |                                    |
 | Unit1RunningStatus                     | Number     | 1    |         |                                    |
 | Unit1WorkingMode                       | Number     | 1    |         |                                    |
 | Unit1BusVoltage                        | Number     | 10   | V       |                                    |
@@ -208,9 +212,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryTemperature                | Number     | 10   | °C      |                                    |
 | Unit1FaultID                           | Number     | 1    |         |                                    |
 | Unit2ProductModel                      | Number     | 1    |         |                                    |
-| Unit2SN                                | String     | 1    |         |                                    |
+| Unit2SN                                | String     |      |         |                                    |
 | Unit2No                                | Number     | 1    |         |                                    |
-| Unit2SoftwareVersion                   | String     | 1    |         |                                    |
+| Unit2SoftwareVersion                   | String     |      |         |                                    |
 | Unit2RunningStatus                     | Number     | 1    |         |                                    |
 | Unit2BusVoltage                        | Number     | 10   | V       |                                    |
 | Unit2BusCurrent                        | Number     | 10   | A       |                                    |
@@ -221,9 +225,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit2TotalCharge                       | Number     | 100  | kWh     |                                    |
 | Unit2TotalDischarge                    | Number     | 100  | kWh     |                                    |
 | Unit2BatteryTemperature                | Number     | 10   | °C      |                                    |
-| Unit1BatteryPack1SN                    | String     | 1    |         |                                    |
+| Unit1BatteryPack1SN                    | String     |      |         |                                    |
 | Unit1BatteryPack1No                    | Number     | 1    |         |                                    |
-| Unit1BatteryPack1FirmwareVersion       | String     | 1    |         |                                    |
+| Unit1BatteryPack1FirmwareVersion       | String     |      |         |                                    |
 | Unit1BatteryPack1WorkingStatus         | Number     | 1    |         |                                    |
 | Unit1BatteryPack1Voltage               | Number     | 10   | V       |                                    |
 | Unit1BatteryPack1Current               | Number     | 10   | A       |                                    |
@@ -233,9 +237,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryPack1TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack1MinimumTemperature    | Number     | 10   | °C      |                                    |
 | Unit1BatteryPack1MaximumTemperature    | Number     | 10   | °C      |                                    |
-| Unit1BatteryPack2SN                    | String     | 1    |         |                                    |
+| Unit1BatteryPack2SN                    | String     |      |         |                                    |
 | Unit1BatteryPack2No                    | Number     | 1    |         |                                    |
-| Unit1BatteryPack2FirmwareVersion       | String     | 1    |         |                                    |
+| Unit1BatteryPack2FirmwareVersion       | String     |      |         |                                    |
 | Unit1BatteryPack2WorkingStatus         | Number     | 1    |         |                                    |
 | Unit1BatteryPack2Voltage               | Number     | 10   | V       |                                    |
 | Unit1BatteryPack2Current               | Number     | 10   | A       |                                    |
@@ -245,9 +249,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryPack2TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack2MinimumTemperature    | Number     | 10   | °C      |                                    |
 | Unit1BatteryPack2MaximumTemperature    | Number     | 10   | °C      |                                    |
-| Unit1BatteryPack3SN                    | String     | 1    |         |                                    |
+| Unit1BatteryPack3SN                    | String     |      |         |                                    |
 | Unit1BatteryPack3No                    | Number     | 1    |         |                                    |
-| Unit1BatteryPack3FirmwareVersion       | String     | 1    |         |                                    |
+| Unit1BatteryPack3FirmwareVersion       | String     |      |         |                                    |
 | Unit1BatteryPack3WorkingStatus         | Number     | 1    |         |                                    |
 | Unit1BatteryPack3Voltage               | Number     | 10   | V       |                                    |
 | Unit1BatteryPack3Current               | Number     | 10   | A       |                                    |
@@ -257,9 +261,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryPack3TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack3MinimumTemperature    | Number     | 10   | °C      |                                    |
 | Unit1BatteryPack3MaximumTemperature    | Number     | 10   | °C      |                                    |
-| Unit2BatteryPack1SN                    | String     | 1    |         |                                    |
+| Unit2BatteryPack1SN                    | String     |      |         |                                    |
 | Unit2BatteryPack1No                    | Number     | 1    |         |                                    |
-| Unit2BatteryPack1FirmwareVersion       | String     | 1    |         |                                    |
+| Unit2BatteryPack1FirmwareVersion       | String     |      |         |                                    |
 | Unit2BatteryPack1WorkingStatus         | Number     | 1    |         |                                    |
 | Unit2BatteryPack1Voltage               | Number     | 10   | V       |                                    |
 | Unit2BatteryPack1Current               | Number     | 10   | A       |                                    |
@@ -269,9 +273,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit2BatteryPack1TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack1MinimumTemperature    | Number     | 10   | °C      |                                    |
 | Unit2BatteryPack1MaximumTemperature    | Number     | 10   | °C      |                                    |
-| Unit2BatteryPack2SN                    | String     | 1    |         |                                    |
+| Unit2BatteryPack2SN                    | String     |      |         |                                    |
 | Unit2BatteryPack2No                    | Number     | 1    |         |                                    |
-| Unit2BatteryPack2FirmwareVersion       | String     | 1    |         |                                    |
+| Unit2BatteryPack2FirmwareVersion       | String     |      |         |                                    |
 | Unit2BatteryPack2WorkingStatus         | Number     | 1    |         |                                    |
 | Unit2BatteryPack2Voltage               | Number     | 10   | V       |                                    |
 | Unit2BatteryPack2Current               | Number     | 10   | A       |                                    |
@@ -281,9 +285,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit2BatteryPack2TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack2MinimumTemperature    | Number     | 10   | °C      |                                    |
 | Unit2BatteryPack2MaximumTemperature    | Number     | 10   | °C      |                                    |
-| Unit2BatteryPack3SN                    | String     | 1    |         |                                    |
+| Unit2BatteryPack3SN                    | String     |      |         |                                    |
 | Unit2BatteryPack3No                    | Number     | 1    |         |                                    |
-| Unit2BatteryPack3FirmwareVersion       | String     | 1    |         |                                    |
+| Unit2BatteryPack3FirmwareVersion       | String     |      |         |                                    |
 | Unit2BatteryPack3WorkingStatus         | Number     | 1    |         |                                    |
 | Unit2BatteryPack3Voltage               | Number     | 10   | V       |                                    |
 | Unit2BatteryPack3Current               | Number     | 10   | A       |                                    |
