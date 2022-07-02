@@ -218,3 +218,63 @@ class TestSun2000(unittest.TestCase):
         result = self.test_inverter.read(MeterEquipmentRegister.ActivePower)
         self.assertEqual(result, 1000.0)
         self.assertTrue(isinstance(result, float))
+
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+    )
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    def test_read_range_returns_range_of_register_values(self):
+        self.test_inverter.connect()
+        result = self.test_inverter.read_range(30000, quantity=35)
+        self.assertEqual(result, b'SUN2000-10KTL-M1\x00\x00\x00\x00SUN2000-12HV2220100135\x00\x00\x00\x00\x00\x00\x00\x0001074311-002\x00\x00\x00\x00\x00\x00\x00\x00')
+
+        result = self.test_inverter.read_range(30000, end_address=30034)
+        self.assertEqual(result, b'SUN2000-10KTL-M1\x00\x00\x00\x00SUN2000-12HV2220100135\x00\x00\x00\x00\x00\x00\x00\x0001074311-002\x00\x00\x00\x00\x00\x00\x00\x00')
+
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    def test_read_range_with_no_right_border(self):
+        self.test_inverter.connect()
+        self.assertRaises(ValueError, self.test_inverter.read_range, 30000)
+
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    def test_read_range_with_both_quantity_and_end_address_defined(self):
+        self.test_inverter.connect()
+        self.assertRaises(ValueError, self.test_inverter.read_range, 30000, quantity=35, end_address=30034)
+
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    def test_read_range_with_quantity_set_to_0(self):
+        self.test_inverter.connect()
+        self.assertRaises(ValueError, self.test_inverter.read_range, 30000, quantity=0)
+
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    def test_read_range_with_end_address_not_being_greater_than_start_address(self):
+        self.test_inverter.connect()
+        self.assertRaises(ValueError, self.test_inverter.read_range, 30000, end_address=30000)
+        self.assertRaises(ValueError, self.test_inverter.read_range, 30000, end_address=29999)
+
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_fail
+    )
+    def test_read_range_from_disconnected_unit(self):
+        self.test_inverter.connect()
+        self.assertRaises(ValueError, self.test_inverter.read_range, 30000, quantity=35)
+
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_fail
+    )
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    def test_read_range_from_unavailable_unit(self):
+        self.test_inverter.connect()
+        self.assertRaises(ModbusIOException, self.test_inverter.read_range, 30000, quantity=35)
