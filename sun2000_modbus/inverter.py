@@ -2,7 +2,7 @@ import logging
 import time
 
 from pymodbus.client.sync import ModbusTcpClient
-from pymodbus.exceptions import ModbusIOException
+from pymodbus.exceptions import ModbusIOException, ConnectionException
 
 from . import datatypes
 
@@ -30,7 +30,7 @@ class Sun2000:
             raise ValueError('Inverter is not connected')
 
         register_value = self.inverter.read_holding_registers(register.value.address, register.value.quantity, unit=self.unit)
-        if type(register_value) == ModbusIOException:
+        if type(register_value) in [ModbusIOException, ConnectionException]:
             logging.error("Inverter unit did not respond")
             self.connected = False
             raise register_value
@@ -70,7 +70,7 @@ class Sun2000:
         if end_address != 0:
             quantity = end_address - start_address + 1
         register_range_value = self.inverter.read_holding_registers(start_address, quantity, unit=self.unit)
-        if type(register_range_value) == ModbusIOException:
+        if type(register_range_value) in [ModbusIOException, ConnectionException]:
             logging.error("Inverter unit did not respond")
             self.connected = False
             raise register_range_value

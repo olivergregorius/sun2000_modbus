@@ -1,4 +1,4 @@
-from pymodbus.exceptions import ModbusIOException
+from pymodbus.exceptions import ModbusIOException, ConnectionException
 
 
 class MockedResponse:
@@ -38,8 +38,12 @@ def mock_read_holding_registers(self, address, quantity, unit):
     return MockedResponse(address, quantity)
 
 
-def mock_read_holding_registers_fail(self, address, quantity, unit):
+def mock_read_holding_registers_ModbusIOException(self, address, quantity, unit):
     return ModbusIOException("Requested unit is not available")
+
+
+def mock_read_holding_registers_ConnectionException(self, address, quantity, unit):
+    return ConnectionException("Connection unexpectedly closed")
 
 
 def connect_success(self):
