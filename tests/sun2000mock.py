@@ -43,7 +43,7 @@ def mock_read_holding_registers_ModbusIOException(self, address, quantity, unit)
 
 
 def mock_read_holding_registers_ConnectionException(self, address, quantity, unit):
-    return ConnectionException("Connection unexpectedly closed")
+    raise ConnectionException("Connection unexpectedly closed")
 
 
 def connect_success(self):
