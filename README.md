@@ -62,6 +62,9 @@ Looking at the [above example](#usage) the different methods would return the fo
 | read           | 8.342          |
 | read_formatted | 8.342 kW       |
 
+Furthermore, a method `read_range` exists accepting the address of the register to start reading and either a quantity of registers or the address of the last
+register to be read. The result is returned as byte-string for further processing.
+
 ## Registers
 
 The following registers are provided by the Sun2000's Modbus interface and can be read accordingly. Documentation can be found
