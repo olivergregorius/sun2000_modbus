@@ -96,6 +96,7 @@ class TestSun2000(unittest.TestCase):
     def test_read_raw_value_string_from_unavailable_unit(self):
         self.test_inverter.connect()
         self.assertRaises(ModbusIOException, self.test_inverter.read_raw_value, InverterEquipmentRegister.Model)
+        self.assertFalse(self.test_inverter.connected)
 
     @patch(
         'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
@@ -278,3 +279,4 @@ class TestSun2000(unittest.TestCase):
     def test_read_range_from_unavailable_unit(self):
         self.test_inverter.connect()
         self.assertRaises(ModbusIOException, self.test_inverter.read_range, 30000, quantity=35)
+        self.assertFalse(self.test_inverter.connected)

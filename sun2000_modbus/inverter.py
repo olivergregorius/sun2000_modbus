@@ -32,6 +32,7 @@ class Sun2000:
         register_value = self.inverter.read_holding_registers(register.value.address, register.value.quantity, unit=self.unit)
         if type(register_value) == ModbusIOException:
             logging.error("Inverter unit did not respond")
+            self.connected = False
             raise register_value
 
         return datatypes.decode(register_value.encode()[1:], register.value.data_type)
@@ -63,6 +64,7 @@ class Sun2000:
             raise ValueError("end_address must be greater than start_address")
 
         if not self.connected:
+            self.connected = False
             raise ValueError('Inverter is not connected')
 
         if end_address != 0:
@@ -70,6 +72,7 @@ class Sun2000:
         register_range_value = self.inverter.read_holding_registers(start_address, quantity, unit=self.unit)
         if type(register_range_value) == ModbusIOException:
             logging.error("Inverter unit did not respond")
+            self.connected = False
             raise register_range_value
 
         return datatypes.decode(register_range_value.encode()[1:], datatypes.DataType.MULTIDATA)
