@@ -53,3 +53,23 @@ class Sun2000:
             return register.value.mapping.get(value, 'undefined')
         else:
             return value
+
+    def read_range(self, start_address, quantity=0, end_address=0):
+        if quantity == 0 and end_address == 0:
+            raise ValueError("Either parameter quantity or end_address is required and must be greater than 0")
+        if quantity != 0 and end_address != 0:
+            raise ValueError("Only one parameter quantity or end_address should be defined")
+        if end_address != 0 and end_address <= start_address:
+            raise ValueError("end_address must be greater than start_address")
+
+        if not self.connected:
+            raise ValueError('Inverter is not connected')
+
+        if end_address != 0:
+            quantity = end_address - start_address + 1
+        register_range_value = self.inverter.read_holding_registers(start_address, quantity, unit=self.unit)
+        if type(register_range_value) == ModbusIOException:
+            logging.error("Inverter unit did not respond")
+            raise register_range_value
+
+        return datatypes.decode(register_range_value.encode()[1:], datatypes.DataType.MULTIDATA)

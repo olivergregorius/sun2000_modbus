@@ -27,7 +27,10 @@ MockedRegisters = {
     (32089, 1): b'\x02\x02\x00',
 
     # MeterEquipmentRegister.ActivePower - 1000
-    (37113, 2): b'\x04\x03\xe8'
+    (37113, 2): b'\x04\x03\xe8',
+
+    # Range of Registers
+    (30000, 35): b'FSUN2000-10KTL-M1\x00\x00\x00\x00SUN2000-12HV2220100135\x00\x00\x00\x00\x00\x00\x00\x0001074311-002\x00\x00\x00\x00\x00\x00\x00\x00'
 }
 
 
