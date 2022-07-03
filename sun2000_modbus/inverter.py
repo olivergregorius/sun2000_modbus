@@ -29,11 +29,16 @@ class Sun2000:
         if not self.connected:
             raise ValueError('Inverter is not connected')
 
-        register_value = self.inverter.read_holding_registers(register.value.address, register.value.quantity, unit=self.unit)
-        if type(register_value) in [ModbusIOException, ConnectionException]:
-            logging.error("Inverter unit did not respond")
+        try:
+            register_value = self.inverter.read_holding_registers(register.value.address, register.value.quantity, unit=self.unit)
+            if type(register_value) == ModbusIOException:
+                logging.error("Inverter unit did not respond")
+                self.connected = False
+                raise register_value
+        except ConnectionException:
+            logging.error("A connection error occurred")
             self.connected = False
-            raise register_value
+            raise
 
         return datatypes.decode(register_value.encode()[1:], register.value.data_type)
 
@@ -69,10 +74,15 @@ class Sun2000:
 
         if end_address != 0:
             quantity = end_address - start_address + 1
-        register_range_value = self.inverter.read_holding_registers(start_address, quantity, unit=self.unit)
-        if type(register_range_value) in [ModbusIOException, ConnectionException]:
-            logging.error("Inverter unit did not respond")
+        try:
+            register_range_value = self.inverter.read_holding_registers(start_address, quantity, unit=self.unit)
+            if type(register_range_value) == ModbusIOException:
+                logging.error("Inverter unit did not respond")
+                self.connected = False
+                raise register_range_value
+        except ConnectionException:
+            logging.error("A connection error occurred")
             self.connected = False
-            raise register_range_value
+            raise
 
         return datatypes.decode(register_range_value.encode()[1:], datatypes.DataType.MULTIDATA)
