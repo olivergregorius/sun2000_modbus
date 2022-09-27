@@ -109,3 +109,11 @@ MeterModelDetectionResult = {
     1: 'The selected model is the same as the actual model of the connected meter',
     2: 'The selected model is different from the actual model of the connected meter'
 }
+
+ActivePowerControlMode = {
+    0: 'Unlimited',
+    1: 'DI active scheduling',
+    5: 'Zero power grid connection',
+    6: 'Powerlimited grid connection (kW)',
+    7: 'Powerlimited grid connection (%)'
+}

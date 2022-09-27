@@ -190,6 +190,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | ForcibleDischargePower                 | Number     | 100  | kW      |                                    |
 | TimeOfUseChargingAndDischargingPeriods | Bytestring |      |         |                                    |
 | ExcessPVEnergyUseInTOU                 | Number     | 1    |         |                                    |
+| ActivePowerControlMode                 | Number     | 1    |         |                                    |
+| MaximumFeedGridPowerInKW               | Number     | 1000 | kW      |                                    |
+| MaximumFeedGridPowerInPercentage       | Number     | 10   | %       |                                    |
 | MaximumChargeFromGridPower             | Number     | 100  | kW      |                                    |
 | SwitchToOffGrid                        | Number     | 1    |         |                                    |
 | VoltageInIndependentOperation          | Number     | 1    |         |                                    |
