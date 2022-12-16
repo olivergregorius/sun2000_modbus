@@ -1,6 +1,6 @@
 # sun2000_modbus
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/olivergregorius/sun2000_modbus/Python%20Build?label=Python%20Build&logo=github)](https://github.com/olivergregorius/sun2000_modbus/actions/workflows/build.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/olivergregorius/sun2000_modbus/build.yml?branch=main&label=Python%20Build&logo=github)](https://github.com/olivergregorius/sun2000_modbus/actions/workflows/build.yml)
 [![Python Versions](https://img.shields.io/pypi/pyversions/sun2000_modbus?label=Python)](https://pypi.org/project/sun2000_modbus/)
 [![GitHub](https://img.shields.io/github/license/olivergregorius/sun2000_modbus?label=License)](https://github.com/olivergregorius/sun2000_modbus/blob/HEAD/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/sun2000_modbus?label=PyPI)](https://pypi.org/project/sun2000_modbus/)
