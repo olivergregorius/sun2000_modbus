@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 class Sun2000:
-    def __init__(self, host, port=502, timeout=5, wait=2, unit=0):
+    def __init__(self, host, port=502, timeout=5, wait=2, unit=1):
         self.wait = wait
         self.connected = False
         self.unit = unit
