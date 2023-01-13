@@ -25,6 +25,10 @@ class Sun2000:
                 logging.error('Connection to inverter failed')
 
     def disconnect(self):
+        """Close the underlying tcp socket"""
+        # Some Sun2000 models with the SDongle WLAN-FE require the TCP connection to be closed
+        # as soon as possible. Leaving the TCP connection open for an extended time may cause 
+        # dongle reboots and/or FusionSolar portal updates to be delayed or even paused. 
         self.inverter.close()
 
     def read_raw_value(self, register):
