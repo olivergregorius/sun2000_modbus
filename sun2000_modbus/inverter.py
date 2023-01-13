@@ -21,8 +21,10 @@ class Sun2000:
             time.sleep(self.wait)
             if self.inverter.is_socket_open():
                 logging.info('Successfully connected to inverter')
+                return True
             else:
                 logging.error('Connection to inverter failed')
+                return False
 
     def disconnect(self):
         """Close the underlying tcp socket"""
@@ -30,6 +32,10 @@ class Sun2000:
         # as soon as possible. Leaving the TCP connection open for an extended time may cause 
         # dongle reboots and/or FusionSolar portal updates to be delayed or even paused. 
         self.inverter.close()
+
+    def isConnected(self):
+        """Check if underlying tcp socket is open"""
+        return self.inverter.is_socket_open()
 
     def read_raw_value(self, register):
         if not self.inverter.is_socket_open():
