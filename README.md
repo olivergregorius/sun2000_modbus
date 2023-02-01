@@ -80,8 +80,8 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | ModelID                                 | Number                 | 1    |      |                                    |
 | NumberOfPVStrings                       | Number                 | 1    |      |                                    |
 | NumberOfMPPTrackers                     | Number                 | 1    |      |                                    |
-| RatedPower                              | Number                 | 1000 | kW   |                                    |
-| MaximumActivePower                      | Number                 | 1000 | kW   |                                    |
+| RatedPower                              | Number                 | 1    | W    |                                    |
+| MaximumActivePower                      | Number                 | 1    | W    |                                    |
 | MaximumApparentPower                    | Number                 | 1000 | kVA  |                                    |
 | MaximumReactivePowerFedToTheGrid        | Number                 | 1000 | kvar |                                    |
 | MaximumReactivePowerAbsorbedFromTheGrid | Number                 | 1000 | kvar |                                    |
@@ -99,7 +99,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | PV3Current                              | Number                 | 100  | A    |                                    |
 | PV4Voltage                              | Number                 | 10   | V    |                                    |
 | PV4Current                              | Number                 | 100  | A    |                                    |
-| InputPower                              | Number                 | 1000 | kW   |                                    |
+| InputPower                              | Number                 | 1    | W    |                                    |
 | LineVoltageBetweenPhasesAAndB           | Number                 | 10   | V    |                                    |
 | LineVoltageBetweenPhasesBAndC           | Number                 | 10   | V    |                                    |
 | LineVoltageBetweenPhasesCAndA           | Number                 | 10   | V    |                                    |
@@ -109,8 +109,8 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | PhaseACurrent                           | Number                 | 1000 | A    |                                    |
 | PhaseBCurrent                           | Number                 | 1000 | A    |                                    |
 | PhaseCCurrent                           | Number                 | 1000 | A    |                                    |
-| PeakActivePowerOfCurrentDay             | Number                 | 1000 | kW   |                                    |
-| ActivePower                             | Number                 | 1000 | kW   |                                    |
+| PeakActivePowerOfCurrentDay             | Number                 | 1    | W    |                                    |
+| ActivePower                             | Number                 | 1    | W    |                                    |
 | ReactivePower                           | Number                 | 1000 | kvar |                                    |
 | PowerFactor                             | Number                 | 1000 |      |                                    |
 | GridFrequency                           | Number                 | 100  | Hz   |                                    |
@@ -183,17 +183,17 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | GridChargeCutoffSOC                    | Number     | 10   | %       |                                    |
 | ForcibleChargeDischarge                | Number     | 1    |         | Write only, not available for read |
 | FixedChargingAndDischargingPeriods     | Bytestring |      |         |                                    |
-| PowerOfChargeFromGrid                  | Number     | 100  | kW      |                                    |
-| MaximumPowerOfChargeFromGrid           | Number     | 100  | kW      |                                    |
+| PowerOfChargeFromGrid                  | Number     | 0.1  | W       |                                    |
+| MaximumPowerOfChargeFromGrid           | Number     | 0.1  | W       |                                    |
 | ForcibleChargeDischargeSettingMode     | Number     | 1    |         |                                    |
-| ForcibleChargePower                    | Number     | 100  | kW      |                                    |
-| ForcibleDischargePower                 | Number     | 100  | kW      |                                    |
+| ForcibleChargePower                    | Number     | 0.1  | W       |                                    |
+| ForcibleDischargePower                 | Number     | 0.1  | W       |                                    |
 | TimeOfUseChargingAndDischargingPeriods | Bytestring |      |         |                                    |
 | ExcessPVEnergyUseInTOU                 | Number     | 1    |         |                                    |
 | ActivePowerControlMode                 | Number     | 1    |         |                                    |
 | MaximumFeedGridPowerInKW               | Number     | 1000 | kW      |                                    |
 | MaximumFeedGridPowerInPercentage       | Number     | 10   | %       |                                    |
-| MaximumChargeFromGridPower             | Number     | 100  | kW      |                                    |
+| MaximumChargeFromGridPower             | Number     | 0.1  | W       |                                    |
 | SwitchToOffGrid                        | Number     | 1    |         |                                    |
 | VoltageInIndependentOperation          | Number     | 1    |         |                                    |
 | Unit1ProductModel                      | Number     | 1    |         |                                    |
@@ -238,7 +238,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryPack1Voltage               | Number     | 10   | V       |                                    |
 | Unit1BatteryPack1Current               | Number     | 10   | A       |                                    |
 | Unit1BatteryPack1SOC                   | Number     | 10   | %       |                                    |
-| Unit1BatteryPack1ChargeDischargePower  | Number     | 100  | kW      |                                    |
+| Unit1BatteryPack1ChargeDischargePower  | Number     | 0.1  | W       |                                    |
 | Unit1BatteryPack1TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack1TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack1MinimumTemperature    | Number     | 10   | °C      |                                    |
@@ -250,7 +250,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryPack2Voltage               | Number     | 10   | V       |                                    |
 | Unit1BatteryPack2Current               | Number     | 10   | A       |                                    |
 | Unit1BatteryPack2SOC                   | Number     | 10   | %       |                                    |
-| Unit1BatteryPack2ChargeDischargePower  | Number     | 100  | kW      |                                    |
+| Unit1BatteryPack2ChargeDischargePower  | Number     | 0.1  | W       |                                    |
 | Unit1BatteryPack2TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack2TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack2MinimumTemperature    | Number     | 10   | °C      |                                    |
@@ -262,7 +262,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryPack3Voltage               | Number     | 10   | V       |                                    |
 | Unit1BatteryPack3Current               | Number     | 10   | A       |                                    |
 | Unit1BatteryPack3SOC                   | Number     | 10   | %       |                                    |
-| Unit1BatteryPack3ChargeDischargeStatus | Number     | 100  | kW      |                                    |
+| Unit1BatteryPack3ChargeDischargeStatus | Number     | 0.1  | W       |                                    |
 | Unit1BatteryPack3TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack3TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack3MinimumTemperature    | Number     | 10   | °C      |                                    |
@@ -274,7 +274,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit2BatteryPack1Voltage               | Number     | 10   | V       |                                    |
 | Unit2BatteryPack1Current               | Number     | 10   | A       |                                    |
 | Unit2BatteryPack1SOC                   | Number     | 10   | %       |                                    |
-| Unit2BatteryPack1ChargeDischargePower  | Number     | 100  | kW      |                                    |
+| Unit2BatteryPack1ChargeDischargePower  | Number     | 0.1  | W       |                                    |
 | Unit2BatteryPack1TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack1TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack1MinimumTemperature    | Number     | 10   | °C      |                                    |
@@ -286,7 +286,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit2BatteryPack2Voltage               | Number     | 10   | V       |                                    |
 | Unit2BatteryPack2Current               | Number     | 10   | A       |                                    |
 | Unit2BatteryPack2SOC                   | Number     | 10   | %       |                                    |
-| Unit2BatteryPack2ChargeDischargePower  | Number     | 100  | kW      |                                    |
+| Unit2BatteryPack2ChargeDischargePower  | Number     | 0.1  | W       |                                    |
 | Unit2BatteryPack2TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack2TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack2MinimumTemperature    | Number     | 10   | °C      |                                    |
@@ -298,7 +298,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit2BatteryPack3Voltage               | Number     | 10   | V       |                                    |
 | Unit2BatteryPack3Current               | Number     | 10   | A       |                                    |
 | Unit2BatteryPack3SOC                   | Number     | 10   | %       |                                    |
-| Unit2BatteryPack3ChargeDischargePower  | Number     | 100  | kW      |                                    |
+| Unit2BatteryPack3ChargeDischargePower  | Number     | 0.1  | W       |                                    |
 | Unit2BatteryPack3TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack3TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack3MinimumTemperature    | Number     | 10   | °C      |                                    |

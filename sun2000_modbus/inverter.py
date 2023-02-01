@@ -16,10 +16,10 @@ class Sun2000:
         self.inverter = ModbusTcpClient(host, port, timeout=timeout)
 
     def connect(self):
-        if not self.inverter.is_socket_open():
+        if not self.isConnected():
             self.inverter.connect()
             time.sleep(self.wait)
-            if self.inverter.is_socket_open():
+            if self.isConnected():
                 logging.info('Successfully connected to inverter')
                 return True
             else:
@@ -38,7 +38,7 @@ class Sun2000:
         return self.inverter.is_socket_open()
 
     def read_raw_value(self, register):
-        if not self.inverter.is_socket_open():
+        if not self.isConnected():
             raise ValueError('Inverter is not connected')
 
         try:
@@ -78,7 +78,7 @@ class Sun2000:
         if end_address != 0 and end_address <= start_address:
             raise ValueError("end_address must be greater than start_address")
 
-        if not self.inverter.is_socket_open():
+        if not self.isConnected():
             raise ValueError('Inverter is not connected')
 
         if end_address != 0:

@@ -14,7 +14,7 @@ class Register:
     address: int
     quantity: int
     data_type: datatypes.DataType
-    gain: int
+    gain: float
     unit: str
     access_type: AccessType
     mapping: dict
