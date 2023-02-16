@@ -336,3 +336,16 @@ class TestSun2000(unittest.TestCase):
     def test_read_range_from_unavailable_unit(self):
         self.test_inverter.connect()
         self.assertRaises(ConnectionException, self.test_inverter.read_range, 30000, quantity=35)
+
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ModbusIOException
+    )
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_read_range_from_unavailable_unit2(self):
+        self.test_inverter.connect()
+        self.assertRaises(ModbusIOException, self.test_inverter.read_range, 30000, quantity=35)
