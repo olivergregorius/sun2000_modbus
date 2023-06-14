@@ -227,7 +227,7 @@ class BatteryEquipmentRegister(Enum):
     Unit1BatteryPack3Voltage = Register(38319, 1, datatypes.DataType.UINT16_BE, 10, "V", AccessType.RO, None)
     Unit1BatteryPack3Current = Register(38320, 1, datatypes.DataType.INT16_BE, 10, "A", AccessType.RO, None)
     Unit1BatteryPack3SOC = Register(38313, 1, datatypes.DataType.UINT16_BE, 10, "%", AccessType.RO, None)
-    Unit1BatteryPack3ChargeDischargeStatus = Register(38317, 2, datatypes.DataType.INT32_BE, 0.1, "W", AccessType.RO, None)
+    Unit1BatteryPack3ChargeDischargePower = Register(38317, 2, datatypes.DataType.INT32_BE, 0.1, "W", AccessType.RO, None)
     Unit1BatteryPack3TotalCharge = Register(38322, 2, datatypes.DataType.INT32_BE, 100, "kWh", AccessType.RO, None)
     Unit1BatteryPack3TotalDischarge = Register(38324, 2, datatypes.DataType.INT32_BE, 100, "kWh", AccessType.RO, None)
     Unit1BatteryPack3MinimumTemperature = Register(38457, 1, datatypes.DataType.INT16_BE, 10, "°C", AccessType.RO, None)

@@ -25,7 +25,7 @@ from sun2000_modbus import registers
 
 inverter = inverter.Sun2000(host='192.168.8.1')
 inverter.connect()
-if inverter.connected:
+if inverter.isConnected():
     input_power = inverter.read_formatted(registers.InverterEquipmentRegister.InputPower)
     print(input_power)
 ```
@@ -262,7 +262,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryPack3Voltage               | Number     | 10   | V       |                                    |
 | Unit1BatteryPack3Current               | Number     | 10   | A       |                                    |
 | Unit1BatteryPack3SOC                   | Number     | 10   | %       |                                    |
-| Unit1BatteryPack3ChargeDischargeStatus | Number     | 0.1  | W       |                                    |
+| Unit1BatteryPack3ChargeDischargePower  | Number     | 0.1  | W       |                                    |
 | Unit1BatteryPack3TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack3TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack3MinimumTemperature    | Number     | 10   | °C      |                                    |
