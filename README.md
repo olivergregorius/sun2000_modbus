@@ -25,7 +25,7 @@ from sun2000_modbus import registers
 
 inverter = inverter.Sun2000(host='192.168.8.1')
 inverter.connect()
-if inverter.connected:
+if inverter.isConnected():
     input_power = inverter.read_formatted(registers.InverterEquipmentRegister.InputPower)
     print(input_power)
 ```
