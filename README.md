@@ -278,7 +278,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryPack1Voltage               | Number     | 10   | V       |                                    |
 | Unit1BatteryPack1Current               | Number     | 10   | A       |                                    |
 | Unit1BatteryPack1SOC                   | Number     | 10   | %       |                                    |
-| Unit1BatteryPack1ChargeDischargePower  | Number     | 0.1  | W       |                                    |
+| Unit1BatteryPack1ChargeDischargePower  | Number     | 1    | W       |                                    |
 | Unit1BatteryPack1TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack1TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack1MinimumTemperature    | Number     | 10   | °C      |                                    |
@@ -290,7 +290,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryPack2Voltage               | Number     | 10   | V       |                                    |
 | Unit1BatteryPack2Current               | Number     | 10   | A       |                                    |
 | Unit1BatteryPack2SOC                   | Number     | 10   | %       |                                    |
-| Unit1BatteryPack2ChargeDischargePower  | Number     | 0.1  | W       |                                    |
+| Unit1BatteryPack2ChargeDischargePower  | Number     | 1    | W       |                                    |
 | Unit1BatteryPack2TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack2TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack2MinimumTemperature    | Number     | 10   | °C      |                                    |
@@ -302,7 +302,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryPack3Voltage               | Number     | 10   | V       |                                    |
 | Unit1BatteryPack3Current               | Number     | 10   | A       |                                    |
 | Unit1BatteryPack3SOC                   | Number     | 10   | %       |                                    |
-| Unit1BatteryPack3ChargeDischargePower  | Number     | 0.1  | W       |                                    |
+| Unit1BatteryPack3ChargeDischargePower  | Number     | 1    | W       |                                    |
 | Unit1BatteryPack3TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack3TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit1BatteryPack3MinimumTemperature    | Number     | 10   | °C      |                                    |
@@ -314,7 +314,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit2BatteryPack1Voltage               | Number     | 10   | V       |                                    |
 | Unit2BatteryPack1Current               | Number     | 10   | A       |                                    |
 | Unit2BatteryPack1SOC                   | Number     | 10   | %       |                                    |
-| Unit2BatteryPack1ChargeDischargePower  | Number     | 0.1  | W       |                                    |
+| Unit2BatteryPack1ChargeDischargePower  | Number     | 1    | W       |                                    |
 | Unit2BatteryPack1TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack1TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack1MinimumTemperature    | Number     | 10   | °C      |                                    |
@@ -326,7 +326,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit2BatteryPack2Voltage               | Number     | 10   | V       |                                    |
 | Unit2BatteryPack2Current               | Number     | 10   | A       |                                    |
 | Unit2BatteryPack2SOC                   | Number     | 10   | %       |                                    |
-| Unit2BatteryPack2ChargeDischargePower  | Number     | 0.1  | W       |                                    |
+| Unit2BatteryPack2ChargeDischargePower  | Number     | 1    | W       |                                    |
 | Unit2BatteryPack2TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack2TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack2MinimumTemperature    | Number     | 10   | °C      |                                    |
@@ -338,7 +338,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit2BatteryPack3Voltage               | Number     | 10   | V       |                                    |
 | Unit2BatteryPack3Current               | Number     | 10   | A       |                                    |
 | Unit2BatteryPack3SOC                   | Number     | 10   | %       |                                    |
-| Unit2BatteryPack3ChargeDischargePower  | Number     | 0.1  | W       |                                    |
+| Unit2BatteryPack3ChargeDischargePower  | Number     | 1    | W       |                                    |
 | Unit2BatteryPack3TotalCharge           | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack3TotalDischarge        | Number     | 100  | kWh     |                                    |
 | Unit2BatteryPack3MinimumTemperature    | Number     | 10   | °C      |                                    |
