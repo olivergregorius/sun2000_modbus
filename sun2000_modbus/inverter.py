@@ -37,6 +37,10 @@ class Sun2000:
         """Check if underlying tcp socket is open"""
         return self.inverter.is_socket_open()
 
+    @property
+    def connected(self):
+        return self.isConnected()
+
     def read_raw_value(self, register):
         if not self.isConnected():
             raise ValueError('Inverter is not connected')
