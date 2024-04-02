@@ -29,16 +29,15 @@ def decode_bitfield(value):
 
 
 def decode(value, data_type):
-    match data_type:
-        case DataType.STRING:
-            return decode_string(value)
-        case DataType.UINT16_BE | DataType.UINT32_BE:
-            return decode_uint_be(value)
-        case DataType.INT16_BE | DataType.INT32_BE:
-            return decode_int_be(value)
-        case DataType.BITFIELD16 | DataType.BITFIELD32:
-            return decode_bitfield(value)
-        case DataType.MULTIDATA:
-            return value
-        case _:
-            raise ValueError("Unknown register type")
+    if data_type == DataType.STRING:
+        return decode_string(value)
+    elif data_type == DataType.UINT16_BE or data_type == DataType.UINT32_BE:
+        return decode_uint_be(value)
+    elif data_type == DataType.INT16_BE or data_type == DataType.INT32_BE:
+        return decode_int_be(value)
+    elif data_type == DataType.BITFIELD16 or data_type == DataType.BITFIELD32:
+        return decode_bitfield(value)
+    elif data_type == DataType.MULTIDATA:
+        return value
+    else:
+        raise ValueError("Unknown register type")
