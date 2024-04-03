@@ -69,11 +69,14 @@ class Sun2000:
         else:
             return raw_value / register.value.gain
 
-    def read_formatted(self, register):
+    def read_formatted(self, register, use_locale=False):  # added the last argument.
         value = self.read(register)
 
         if register.value.unit is not None:
-            return f'{value} {register.value.unit}'
+            if use_locale:
+                return f'{value:n} {register.value.unit}'  # added :n to format number according to the locale.
+            else:
+                return f'{value} {register.value.unit}'
         elif register.value.mapping is not None:
             return register.value.mapping.get(value, 'undefined')
         else:
