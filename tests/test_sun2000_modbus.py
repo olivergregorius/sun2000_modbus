@@ -56,14 +56,14 @@ class TestDataTypes(unittest.TestCase):
 
 class TestSun2000(unittest.TestCase):
     def setUp(self) -> None:
-        self.test_inverter = Sun2000(host='192.168.8.1', port=123, timeout=3, wait=0, unit=1)
+        self.test_inverter = Sun2000(host='192.168.8.1', port=123, timeout=3, wait=0, slave=1)
 
     def test_init(self):
         self.assertEqual(self.test_inverter.inverter.host, '192.168.8.1')
         self.assertEqual(self.test_inverter.inverter.port, 123)
         self.assertEqual(self.test_inverter.inverter.timeout, 3)
         self.assertEqual(self.test_inverter.wait, 0)
-        self.assertEqual(self.test_inverter.unit, 1)
+        self.assertEqual(self.test_inverter.slave, 1)
         self.assertEqual(self.test_inverter.isConnected(), False)
 
     @patch(
