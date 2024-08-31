@@ -59,71 +59,71 @@ class TestSun2000(unittest.TestCase):
         self.test_inverter = Sun2000(host='192.168.8.1', port=123, timeout=3, wait=0, slave=1)
 
     def test_init(self):
-        self.assertEqual(self.test_inverter.inverter.host, '192.168.8.1')
-        self.assertEqual(self.test_inverter.inverter.port, 123)
-        self.assertEqual(self.test_inverter.inverter.timeout, 3)
+        self.assertEqual(self.test_inverter.inverter.comm_params.host, '192.168.8.1')
+        self.assertEqual(self.test_inverter.inverter.comm_params.port, 123)
+        self.assertEqual(self.test_inverter.inverter.comm_params.timeout_connect, 3)
         self.assertEqual(self.test_inverter.wait, 0)
         self.assertEqual(self.test_inverter.slave, 1)
         self.assertEqual(self.test_inverter.isConnected(), False)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_connect_success(self):
         self.test_inverter.connect()
         self.assertTrue(self.test_inverter.isConnected())
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_fail
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_fail
     )
     def test_connect_fail(self):
         self.test_inverter.connect()
         self.assertFalse(self.test_inverter.isConnected())
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_fail
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_fail
     )
     def test_read_raw_value_string_from_disconnected_unit(self):
         self.test_inverter.connect()
         self.assertRaises(ValueError, self.test_inverter.read_raw_value, InverterEquipmentRegister.Model)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ModbusIOException
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ModbusIOException
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_raw_value_string_from_unavailable_unit(self):
         self.test_inverter.connect()
         self.assertRaises(ModbusIOException, self.test_inverter.read_raw_value, InverterEquipmentRegister.Model)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ConnectionException
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ConnectionException
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_raw_value_string_connection_unexpectedly_closed(self):
         self.test_inverter.connect()
         self.assertRaises(ConnectionException, self.test_inverter.read_raw_value, InverterEquipmentRegister.Model)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_raw_value_string(self):
         self.test_inverter.connect()
@@ -131,13 +131,13 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, 'SUN2000')
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_raw_value_uint16be(self):
         self.test_inverter.connect()
@@ -145,13 +145,13 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, 429)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_raw_value_uint32be(self):
         self.test_inverter.connect()
@@ -159,13 +159,13 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, 10000)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_uint32be(self):
         self.test_inverter.connect()
@@ -173,13 +173,13 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, 10000.0)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_formatted_uint32be(self):
         self.test_inverter.connect()
@@ -187,13 +187,13 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, "10000.0 W")
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_raw_value_bitfield16(self):
         self.test_inverter.connect()
@@ -201,13 +201,13 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, '0000000000000110')
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_bitfield16(self):
         self.test_inverter.connect()
@@ -215,13 +215,13 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, '0000000000000110')
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_formatted_bitfield16(self):
         self.test_inverter.connect()
@@ -229,13 +229,13 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, '0000000000000110')
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_raw_value_with_mapping(self):
         self.test_inverter.connect()
@@ -243,13 +243,13 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, 512)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_formatted_with_mapping(self):
         self.test_inverter.connect()
@@ -257,13 +257,13 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, 'On-grid')
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_returns_float(self):
         self.test_inverter.connect()
@@ -272,13 +272,13 @@ class TestSun2000(unittest.TestCase):
         self.assertTrue(isinstance(result, float))
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_range_returns_range_of_register_values(self):
         self.test_inverter.connect()
@@ -289,28 +289,28 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, b'SUN2000-10KTL-M1\x00\x00\x00\x00SUN2000-12HV2220100135\x00\x00\x00\x00\x00\x00\x00\x0001074311-002\x00\x00\x00\x00\x00\x00\x00\x00')
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     def test_read_range_with_no_right_border(self):
         self.test_inverter.connect()
         self.assertRaises(ValueError, self.test_inverter.read_range, 30000)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     def test_read_range_with_both_quantity_and_end_address_defined(self):
         self.test_inverter.connect()
         self.assertRaises(ValueError, self.test_inverter.read_range, 30000, quantity=35, end_address=30034)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     def test_read_range_with_quantity_set_to_0(self):
         self.test_inverter.connect()
         self.assertRaises(ValueError, self.test_inverter.read_range, 30000, quantity=0)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     def test_read_range_with_end_address_not_being_greater_than_start_address(self):
         self.test_inverter.connect()
@@ -318,33 +318,33 @@ class TestSun2000(unittest.TestCase):
         self.assertRaises(ValueError, self.test_inverter.read_range, 30000, end_address=29999)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_fail
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_fail
     )
     def test_read_range_from_disconnected_unit(self):
         self.test_inverter.connect()
         self.assertRaises(ValueError, self.test_inverter.read_range, 30000, quantity=35)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ConnectionException
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ConnectionException
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_range_from_unavailable_unit(self):
         self.test_inverter.connect()
         self.assertRaises(ConnectionException, self.test_inverter.read_range, 30000, quantity=35)
 
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ModbusIOException
+        'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ModbusIOException
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.connect', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     @patch(
-        'pymodbus.client.sync.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
     )
     def test_read_range_from_unavailable_unit2(self):
         self.test_inverter.connect()
