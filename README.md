@@ -42,7 +42,7 @@ During instantiation of a Sun2000 object the following parameters are accepted:
 | port      | Port, usually 502, changed to 6607 on newer firmware versions.                              |
 | timeout   | Connection timeout                                                                          |
 | wait      | Time to wait after connection before a register read can be performed. Increases stability. |
-| unit      | Number of inverter unit to be read, used in cascading scenarios.                            |
+| slave     | Number of inverter unit to be read, used in cascading scenarios.                            |
 
 ### Read metrics
 
