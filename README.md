@@ -77,6 +77,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Model                                   | String                 |      |      |                                    |
 | SN                                      | String                 |      |      |                                    |
 | PN                                      | String                 |      |      |                                    |
+| FirmwareVerion                          | String                 |      |      |                                    |
+| SoftwareVerion                          | String                 |      |      |                                    |
+| ProtocolVerion                          | String                 |      |      |                                    |
 | ModelID                                 | Number                 | 1    |      |                                    |
 | NumberOfPVStrings                       | Number                 | 1    |      |                                    |
 | NumberOfMPPTrackers                     | Number                 | 1    |      |                                    |
