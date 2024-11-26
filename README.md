@@ -12,7 +12,7 @@ to the device's internal Wifi access point. For information about how to connect
 
 ## Requirements
 
-- Python >= 3.10
+- Python >= 3.9
 
 ## Usage
 
@@ -36,13 +36,13 @@ The above code snippet prints out the current input power value, e.g. `8.342 kW`
 
 During instantiation of a Sun2000 object the following parameters are accepted:
 
-| Parameter | Description                                                                                 |
-|-----------|---------------------------------------------------------------------------------------------|
-| host      | IP address                                                                                  |
-| port      | Port, usually 502, changed to 6607 on newer firmware versions.                              |
-| timeout   | Connection timeout                                                                          |
-| wait      | Time to wait after connection before a register read can be performed. Increases stability. |
-| slave     | Number of inverter unit to be read, used in cascading scenarios.                            |
+| Parameter | Description                                                                                                                         |
+|-----------|-------------------------------------------------------------------------------------------------------------------------------------|
+| host      | IP address                                                                                                                          |
+| port      | Port, usually 502, changed to 6607 on newer firmware versions.                                                                      |
+| timeout   | Connection timeout                                                                                                                  |
+| wait      | Time to wait after connection before a register read can be performed. Increases stability.                                         |
+| slave     | Number of inverter unit to be read, used in cascading scenarios. Defaults to 0, but some devices need it to be set to other values. |
 
 ### Read metrics
 
