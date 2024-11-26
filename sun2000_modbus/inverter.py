@@ -12,10 +12,11 @@ log_format = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
 handler = logging.StreamHandler()
 handler.setFormatter(log_format)
 logger.addHandler(handler)
+logger.propagate = False
 
 
 class Sun2000:
-    def __init__(self, host, port=502, timeout=5, wait=2, slave=1):
+    def __init__(self, host, port=502, timeout=5, wait=2, slave=0): # some models need slave=1
         self.wait = wait
         self.slave = slave
         self.inverter = ModbusTcpClient(host=host, port=port, timeout=timeout)
