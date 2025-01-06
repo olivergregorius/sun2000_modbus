@@ -5,6 +5,7 @@ from pymodbus.client import ModbusTcpClient
 from pymodbus.exceptions import ModbusIOException, ConnectionException
 
 from . import datatypes
+from .registers import AccessType
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -35,8 +36,8 @@ class Sun2000:
     def disconnect(self):
         """Close the underlying tcp socket"""
         # Some Sun2000 models with the SDongle WLAN-FE require the TCP connection to be closed
-        # as soon as possible. Leaving the TCP connection open for an extended time may cause 
-        # dongle reboots and/or FusionSolar portal updates to be delayed or even paused. 
+        # as soon as possible. Leaving the TCP connection open for an extended time may cause
+        # dongle reboots and/or FusionSolar portal updates to be delayed or even paused.
         self.inverter.close()
 
     def isConnected(self):
@@ -106,3 +107,18 @@ class Sun2000:
             raise
 
         return datatypes.decode(register_range_value.encode()[1:], datatypes.DataType.MULTIDATA)
+
+    def write(self, register, value):
+        if not self.isConnected():
+            raise ValueError('Inverter is not connected')
+        if not register.access_type in [AccessType.RW, AccessType.WO]:
+            raise ValueError('Register is not writeable')
+
+        encoded_value = datatypes.encode(value, register.data_type)
+        chunks = [encoded_value[i:i+2] for i in range(0, len(encoded_value), 2)]
+
+        try:
+            self.inverter.write_registers(register.value.address, chunks, slave=self.slave, skip_encode=True)
+        except ConnectionException:
+            logger.error("A connection error occurred")
+            raise
