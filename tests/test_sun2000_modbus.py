@@ -64,6 +64,11 @@ class TestDataTypes(unittest.TestCase):
         decoded = decode(value, DataType.BITFIELD16)
         self.assertEqual(decoded, '00111110001000101010111101000101')
 
+    def test_encode_multidata(self):
+        value = b'\x3e\x22\xaf\x45'
+        encoded = encode(value, DataType.MULTIDATA)
+        self.assertEqual(encoded, b'\x3e\x22\xaf\x45')
+
     def test_decode_multidata(self):
         value = b'\x3e\x22\xaf\x45'
         decoded = decode(value, DataType.MULTIDATA)
