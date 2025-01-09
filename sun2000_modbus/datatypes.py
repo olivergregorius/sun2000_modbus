@@ -45,8 +45,12 @@ def encode(value, data_type):
         return encode_int_be(value, 2)
     elif data_type == DataType.INT32_BE:
         return encode_int_be(value, 4)
+    elif data_type == DataType.MULTIDATA:
+        if len(value) % 2 != 0:
+            raise ValueError('Multidata value length must be a multiple of 2')
+        return value
     else:
-        raise ValueError("Unknown register type")
+        raise ValueError('Writing is not supported for register type')
 
 
 def decode(value, data_type):

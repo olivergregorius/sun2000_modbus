@@ -46,6 +46,14 @@ def mock_read_holding_registers_ConnectionException(self, address, quantity, sla
     raise ConnectionException("Connection unexpectedly closed")
 
 
+def mock_write_registers_ModbusIOException(self, address, value, slave, skip_encode):
+    return ModbusIOException('Requested slave is not available')
+
+
+def mock_write_registers_ConnectionException(self, address, value, slave, skip_encode):
+    raise ConnectionException('Connection unexpectedly closed')
+
+
 def connect_success(self):
     return True
 

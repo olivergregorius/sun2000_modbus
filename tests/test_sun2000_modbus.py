@@ -4,8 +4,8 @@ import sun2000mock
 
 from pymodbus.exceptions import ModbusIOException, ConnectionException
 from sun2000_modbus.inverter import Sun2000
-from sun2000_modbus.datatypes import decode, DataType
-from sun2000_modbus.registers import InverterEquipmentRegister, MeterEquipmentRegister
+from sun2000_modbus.datatypes import encode, decode, DataType
+from sun2000_modbus.registers import InverterEquipmentRegister, MeterEquipmentRegister, BatteryEquipmentRegister
 
 
 class TestDataTypes(unittest.TestCase):
@@ -14,20 +14,40 @@ class TestDataTypes(unittest.TestCase):
         decoded = decode(value, DataType.STRING)
         self.assertEqual(decoded, 'SUN2000')
 
+    def test_encode_uint16_be(self):
+        value = 1234
+        encoded = encode(value, DataType.UINT16_BE)
+        self.assertEqual(encoded, b'\x04\xD2')
+
     def test_decode_uint16_be(self):
         value = b'\x04\xD2'
         decoded = decode(value, DataType.UINT16_BE)
         self.assertEqual(decoded, 1234)
+
+    def test_encode_uint32_be(self):
+        value = 123456789
+        encoded = encode(value, DataType.UINT32_BE)
+        self.assertEqual(encoded, b'\x07\x5B\xCD\x15')
 
     def test_decode_uint32_be(self):
         value = b'\x07\x5B\xCD\x15'
         decoded = decode(value, DataType.UINT32_BE)
         self.assertEqual(decoded, 123456789)
 
+    def test_encode_int16_be(self):
+        value = -1234
+        encoded = encode(value, DataType.INT16_BE)
+        self.assertEqual(encoded, b'\xFB\x2E')
+
     def test_decode_int16_be(self):
         value = b'\xfb\x2e'
         decoded = decode(value, DataType.INT16_BE)
         self.assertEqual(decoded, -1234)
+
+    def test_encode_int32_be(self):
+        value = -123456789
+        encoded = encode(value, DataType.INT32_BE)
+        self.assertEqual(encoded, b'\xF8\xA4\x32\xEB')
 
     def test_decode_int32_be(self):
         value = b'\xf8\xa4\x32\xeb'
@@ -349,3 +369,139 @@ class TestSun2000(unittest.TestCase):
     def test_read_range_from_unavailable_unit2(self):
         self.test_inverter.connect()
         self.assertRaises(ModbusIOException, self.test_inverter.read_range, 30000, quantity=35)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_fail
+    )
+    def test_write_to_disconnected_unit(self):
+        self.test_inverter.connect()
+        with self.assertRaises(ValueError) as cm:
+            self.test_inverter.write(BatteryEquipmentRegister.BackupPowerSOC, 10)
+        self.assertEqual(str(cm.exception), 'Inverter is not connected')
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.write_registers', sun2000mock.mock_write_registers_ModbusIOException
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_write_to_unavailable_unit(self):
+        self.test_inverter.connect()
+        with self.assertRaises(ModbusIOException) as cm:
+            self.test_inverter.write(BatteryEquipmentRegister.BackupPowerSOC, 10)
+        self.assertEqual(str(cm.exception), 'Modbus Error: [Input/Output] Requested slave is not available')
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_write_to_read_only_register(self):
+        self.test_inverter.connect()
+        with self.assertRaises(ValueError) as cm:
+            self.test_inverter.write(BatteryEquipmentRegister.RunningStatus, 1)
+        self.assertEqual(str(cm.exception), 'Register is not writeable')
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.write_registers', sun2000mock.mock_write_registers_ConnectionException
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_write_uint16be_connection_unexpectedly_closed(self):
+        self.test_inverter.connect()
+        with self.assertRaises(ConnectionException) as cm:
+            self.test_inverter.write(BatteryEquipmentRegister.BackupPowerSOC, 10)
+        self.assertEqual(str(cm.exception), 'Modbus Error: [Connection] Connection unexpectedly closed')
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.write_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_write_uint16be(self, write_registers_mock):
+        self.test_inverter.connect()
+        self.test_inverter.write(BatteryEquipmentRegister.BackupPowerSOC, 10)
+        write_registers_mock.assert_called_once_with(47102, [b'\x00\x0A'], slave=1, skip_encode=True)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.write_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_write_uint32be(self, write_registers_mock):
+        self.test_inverter.connect()
+        self.test_inverter.write(InverterEquipmentRegister.FixedActivePowerDeratedInW, 10200)
+        write_registers_mock.assert_called_once_with(40126, [b'\x00\x00', b'\x27\xD8'], slave=1, skip_encode=True)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.write_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_write_int16be(self, write_registers_mock):
+        self.test_inverter.connect()
+        self.test_inverter.write(BatteryEquipmentRegister.MaximumFeedGridPowerInPercentage, -90)
+        write_registers_mock.assert_called_once_with(47418, [b'\xFF\xA6'], slave=1, skip_encode=True)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.write_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_write_int32be(self, write_registers_mock):
+        self.test_inverter.connect()
+        self.test_inverter.write(BatteryEquipmentRegister.MaximumChargeFromGridPower, -10200)
+        write_registers_mock.assert_called_once_with(47590, [b'\xFF\xFF', b'\xD8\x28'], slave=1, skip_encode=True)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.write_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_write_multidata(self, write_registers_mock):
+        self.test_inverter.connect()
+        self.test_inverter.write(InverterEquipmentRegister.CosPhiPPnCharacteristicCurve, b'\x01\x02\x03\x04')
+        write_registers_mock.assert_called_once_with(40133, [b'\x01\x02', b'\x03\x04'], slave=1, skip_encode=True)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.write_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_write_multidata_invalid(self, write_registers_mock):
+        self.test_inverter.connect()
+        with self.assertRaises(ValueError) as cm:
+            self.test_inverter.write(InverterEquipmentRegister.CosPhiPPnCharacteristicCurve, b'\x01\x02\x03')
+        self.assertEqual(str(cm.exception), 'Multidata value length must be a multiple of 2')

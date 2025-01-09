@@ -111,14 +111,17 @@ class Sun2000:
     def write(self, register, value):
         if not self.isConnected():
             raise ValueError('Inverter is not connected')
-        if not register.access_type in [AccessType.RW, AccessType.WO]:
+        if not register.value.access_type in [AccessType.RW, AccessType.WO]:
             raise ValueError('Register is not writeable')
 
-        encoded_value = datatypes.encode(value, register.data_type)
+        encoded_value = datatypes.encode(value, register.value.data_type)
         chunks = [encoded_value[i:i+2] for i in range(0, len(encoded_value), 2)]
 
         try:
-            self.inverter.write_registers(register.value.address, chunks, slave=self.slave, skip_encode=True)
+            response = self.inverter.write_registers(register.value.address, chunks, slave=self.slave, skip_encode=True)
+            if type(response) == ModbusIOException:
+                logger.error('Inverter unit did not respond')
+                raise response
         except ConnectionException:
-            logger.error("A connection error occurred")
+            logger.error('A connection error occurred')
             raise
