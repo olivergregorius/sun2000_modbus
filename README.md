@@ -14,6 +14,11 @@ to the device's internal Wifi access point. For information about how to connect
 
 - Python >= 3.9
 
+## Disclaimer
+
+By using the content in this repository, you acknowledge that you do so at your own risk. I am not liable for any damages or issues that may arise from use of
+this library.
+
 ## Usage
 
 sun2000_modbus provides easy and comfortable access to your inverter's Modbus TCP interface. The following example gives a short introduction about how to read
