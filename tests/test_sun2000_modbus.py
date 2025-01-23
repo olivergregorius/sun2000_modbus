@@ -40,7 +40,7 @@ class TestDataTypes(unittest.TestCase):
         self.assertEqual(encoded, b'\xFB\x2E')
 
     def test_decode_int16_be(self):
-        value = b'\xfb\x2e'
+        value = b'\xFB\x2E'
         decoded = decode(value, DataType.INT16_BE)
         self.assertEqual(decoded, -1234)
 
@@ -50,32 +50,32 @@ class TestDataTypes(unittest.TestCase):
         self.assertEqual(encoded, b'\xF8\xA4\x32\xEB')
 
     def test_decode_int32_be(self):
-        value = b'\xf8\xa4\x32\xeb'
+        value = b'\xF8\xA4\x32\xEB'
         decoded = decode(value, DataType.INT32_BE)
         self.assertEqual(decoded, -123456789)
 
     def test_decode_bitfield16(self):
-        value = b'\x3e\x22'
+        value = b'\x3E\x22'
         decoded = decode(value, DataType.BITFIELD16)
         self.assertEqual(decoded, '0011111000100010')
 
     def test_decode_bitfield32(self):
-        value = b'\x3e\x22\xaf\x45'
+        value = b'\x3E\x22\xAF\x45'
         decoded = decode(value, DataType.BITFIELD16)
         self.assertEqual(decoded, '00111110001000101010111101000101')
 
     def test_encode_multidata(self):
-        value = b'\x3e\x22\xaf\x45'
+        value = b'\x3E\x22\xAF\x45'
         encoded = encode(value, DataType.MULTIDATA)
-        self.assertEqual(encoded, b'\x3e\x22\xaf\x45')
+        self.assertEqual(encoded, b'\x3E\x22\xAF\x45')
 
     def test_decode_multidata(self):
-        value = b'\x3e\x22\xaf\x45'
+        value = b'\x3E\x22\xAF\x45'
         decoded = decode(value, DataType.MULTIDATA)
-        self.assertEqual(decoded, b'\x3e\x22\xaf\x45')
+        self.assertEqual(decoded, b'\x3E\x22\xAF\x45')
 
     def test_decode_invalid(self):
-        value = b'\x3e'
+        value = b'\x3E'
         self.assertRaises(ValueError, decode, value, 'invalid')
 
 
@@ -113,7 +113,9 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_raw_value_string_from_disconnected_unit(self):
         self.test_inverter.connect()
-        self.assertRaises(ValueError, self.test_inverter.read_raw_value, InverterEquipmentRegister.Model)
+        with self.assertRaises(ValueError) as cm:
+            self.test_inverter.read_raw_value(InverterEquipmentRegister.Model)
+        self.assertEqual(str(cm.exception), 'Inverter is not connected')
 
     @patch(
         'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ModbusIOException
@@ -126,7 +128,9 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_raw_value_string_from_unavailable_unit(self):
         self.test_inverter.connect()
-        self.assertRaises(ModbusIOException, self.test_inverter.read_raw_value, InverterEquipmentRegister.Model)
+        with self.assertRaises(ModbusIOException) as cm:
+            self.test_inverter.read_raw_value(InverterEquipmentRegister.Model)
+        self.assertEqual(str(cm.exception), 'Modbus Error: [Input/Output] Requested slave is not available')
 
     @patch(
         'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ConnectionException
@@ -139,7 +143,9 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_raw_value_string_connection_unexpectedly_closed(self):
         self.test_inverter.connect()
-        self.assertRaises(ConnectionException, self.test_inverter.read_raw_value, InverterEquipmentRegister.Model)
+        with self.assertRaises(ConnectionException) as cm:
+            self.test_inverter.read_raw_value(InverterEquipmentRegister.Model)
+        self.assertEqual(str(cm.exception), 'Modbus Error: [Connection] Connection unexpectedly closed')
 
     @patch(
         'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
@@ -209,7 +215,7 @@ class TestSun2000(unittest.TestCase):
     def test_read_formatted_uint32be(self):
         self.test_inverter.connect()
         result = self.test_inverter.read_formatted(InverterEquipmentRegister.RatedPower)
-        self.assertEqual(result, "10000.0 W")
+        self.assertEqual(result, '10000.0 W')
 
     @patch(
         'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
@@ -318,36 +324,49 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_range_with_no_right_border(self):
         self.test_inverter.connect()
-        self.assertRaises(ValueError, self.test_inverter.read_range, 30000)
+        with self.assertRaises(ValueError) as cm:
+            self.test_inverter.read_range(30000)
+        self.assertEqual(str(cm.exception), 'Either parameter quantity or end_address is required and must be greater than 0')
 
     @patch(
         'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     def test_read_range_with_both_quantity_and_end_address_defined(self):
         self.test_inverter.connect()
-        self.assertRaises(ValueError, self.test_inverter.read_range, 30000, quantity=35, end_address=30034)
+        with self.assertRaises(ValueError) as cm:
+            self.test_inverter.read_range(30000, quantity=35, end_address=30034)
+        self.assertEqual(str(cm.exception), 'Only one parameter quantity or end_address should be defined')
 
     @patch(
         'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     def test_read_range_with_quantity_set_to_0(self):
         self.test_inverter.connect()
-        self.assertRaises(ValueError, self.test_inverter.read_range, 30000, quantity=0)
+        with self.assertRaises(ValueError) as cm:
+            self.test_inverter.read_range(30000, quantity=0)
+        self.assertEqual(str(cm.exception), 'Either parameter quantity or end_address is required and must be greater than 0')
 
     @patch(
         'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
     )
     def test_read_range_with_end_address_not_being_greater_than_start_address(self):
         self.test_inverter.connect()
-        self.assertRaises(ValueError, self.test_inverter.read_range, 30000, end_address=30000)
-        self.assertRaises(ValueError, self.test_inverter.read_range, 30000, end_address=29999)
+        with self.assertRaises(ValueError) as cm:
+            self.test_inverter.read_range(30000, end_address=30000)
+        self.assertEqual(str(cm.exception), 'end_address must be greater than start_address')
+
+        with self.assertRaises(ValueError) as cm:
+            self.test_inverter.read_range(30000, end_address=29999)
+        self.assertEqual(str(cm.exception), 'end_address must be greater than start_address')
 
     @patch(
         'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_fail
     )
     def test_read_range_from_disconnected_unit(self):
         self.test_inverter.connect()
-        self.assertRaises(ValueError, self.test_inverter.read_range, 30000, quantity=35)
+        with self.assertRaises(ValueError) as cm:
+            self.test_inverter.read_range(30000, quantity=35)
+        self.assertEqual(str(cm.exception), 'Inverter is not connected')
 
     @patch(
         'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ConnectionException
@@ -360,7 +379,9 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_range_from_unavailable_unit(self):
         self.test_inverter.connect()
-        self.assertRaises(ConnectionException, self.test_inverter.read_range, 30000, quantity=35)
+        with self.assertRaises(ConnectionException) as cm:
+            self.test_inverter.read_range(30000, quantity=35)
+        self.assertEqual(str(cm.exception), 'Modbus Error: [Connection] Connection unexpectedly closed')
 
     @patch(
         'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers_ModbusIOException
@@ -373,7 +394,9 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_range_from_unavailable_unit2(self):
         self.test_inverter.connect()
-        self.assertRaises(ModbusIOException, self.test_inverter.read_range, 30000, quantity=35)
+        with self.assertRaises(ModbusIOException) as cm:
+            self.test_inverter.read_range(30000, quantity=35)
+        self.assertEqual(str(cm.exception), 'Modbus Error: [Input/Output] Requested slave is not available')
 
     @patch(
         'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_fail
