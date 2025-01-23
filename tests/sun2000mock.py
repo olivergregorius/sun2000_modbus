@@ -12,13 +12,13 @@ class MockedResponse:
 
 MockedRegisters = {
     # InverterEquipmentRegister.Model - 'SUN2000'
-    (30000, 15): b'\x1eSUN2000\x00\x00\x00',
+    (30000, 15): b'\x1ESUN2000\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00',
 
     # InverterEquipmentRegister.ModelID - 429
-    (30070, 1): b'\x02\x01\xad',
+    (30070, 1): b'\x02\x01\xAD',
 
     # InverterEquipmentRegister.RatedPower - 10000
-    (30073, 2): b"\x04\x00\x00'\x10",
+    (30073, 2): b'\x04\x00\x00\x27\x10',
 
     # InverterEquipmentRegister.State1 - '0000000000000110'
     (32000, 1): b'\x02\x00\x06',
@@ -27,10 +27,10 @@ MockedRegisters = {
     (32089, 1): b'\x02\x02\x00',
 
     # MeterEquipmentRegister.ActivePower - 1000
-    (37113, 2): b'\x04\x03\xe8',
+    (37113, 2): b'\x04\x00\x00\x03\xE8',
 
     # Range of Registers
-    (30000, 35): b'FSUN2000-10KTL-M1\x00\x00\x00\x00SUN2000-12HV2220100135\x00\x00\x00\x00\x00\x00\x00\x0001074311-002\x00\x00\x00\x00\x00\x00\x00\x00'
+    (30000, 35): b'\x46SUN2000-10KTL-M1\x00\x00\x00\x00SUN2000-12HV2220100135\x00\x00\x00\x00\x00\x00\x00\x0001074311-002\x00\x00\x00\x00\x00\x00\x00\x00'
 }
 
 
@@ -39,11 +39,19 @@ def mock_read_holding_registers(self, address, quantity, slave):
 
 
 def mock_read_holding_registers_ModbusIOException(self, address, quantity, slave):
-    return ModbusIOException("Requested slave is not available")
+    return ModbusIOException('Requested slave is not available')
 
 
 def mock_read_holding_registers_ConnectionException(self, address, quantity, slave):
-    raise ConnectionException("Connection unexpectedly closed")
+    raise ConnectionException('Connection unexpectedly closed')
+
+
+def mock_write_registers_ModbusIOException(self, address, value, slave, skip_encode):
+    return ModbusIOException('Requested slave is not available')
+
+
+def mock_write_registers_ConnectionException(self, address, value, slave, skip_encode):
+    raise ConnectionException('Connection unexpectedly closed')
 
 
 def connect_success(self):

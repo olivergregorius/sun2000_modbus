@@ -5,6 +5,7 @@ from pymodbus.client import ModbusTcpClient
 from pymodbus.exceptions import ModbusIOException, ConnectionException
 
 from . import datatypes
+from .registers import AccessType
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -35,8 +36,8 @@ class Sun2000:
     def disconnect(self):
         """Close the underlying tcp socket"""
         # Some Sun2000 models with the SDongle WLAN-FE require the TCP connection to be closed
-        # as soon as possible. Leaving the TCP connection open for an extended time may cause 
-        # dongle reboots and/or FusionSolar portal updates to be delayed or even paused. 
+        # as soon as possible. Leaving the TCP connection open for an extended time may cause
+        # dongle reboots and/or FusionSolar portal updates to be delayed or even paused.
         self.inverter.close()
 
     def isConnected(self):
@@ -54,10 +55,10 @@ class Sun2000:
         try:
             register_value = self.inverter.read_holding_registers(register.value.address, register.value.quantity, slave=self.slave)
             if type(register_value) == ModbusIOException:
-                logger.error("Inverter unit did not respond")
+                logger.error('Inverter unit did not respond')
                 raise register_value
         except ConnectionException:
-            logger.error("A connection error occurred")
+            logger.error('A connection error occurred')
             raise
 
         return datatypes.decode(register_value.encode()[1:], register.value.data_type)
@@ -85,11 +86,11 @@ class Sun2000:
 
     def read_range(self, start_address, quantity=0, end_address=0):
         if quantity == 0 and end_address == 0:
-            raise ValueError("Either parameter quantity or end_address is required and must be greater than 0")
+            raise ValueError('Either parameter quantity or end_address is required and must be greater than 0')
         if quantity != 0 and end_address != 0:
-            raise ValueError("Only one parameter quantity or end_address should be defined")
+            raise ValueError('Only one parameter quantity or end_address should be defined')
         if end_address != 0 and end_address <= start_address:
-            raise ValueError("end_address must be greater than start_address")
+            raise ValueError('end_address must be greater than start_address')
 
         if not self.isConnected():
             raise ValueError('Inverter is not connected')
@@ -99,10 +100,28 @@ class Sun2000:
         try:
             register_range_value = self.inverter.read_holding_registers(start_address, quantity, slave=self.slave)
             if type(register_range_value) == ModbusIOException:
-                logger.error("Inverter unit did not respond")
+                logger.error('Inverter unit did not respond')
                 raise register_range_value
         except ConnectionException:
-            logger.error("A connection error occurred")
+            logger.error('A connection error occurred')
             raise
 
         return datatypes.decode(register_range_value.encode()[1:], datatypes.DataType.MULTIDATA)
+
+    def write(self, register, value):
+        if not self.isConnected():
+            raise ValueError('Inverter is not connected')
+        if not register.value.access_type in [AccessType.RW, AccessType.WO]:
+            raise ValueError('Register is not writeable')
+
+        encoded_value = datatypes.encode(value, register.value.data_type)
+        chunks = [encoded_value[i:i+2] for i in range(0, len(encoded_value), 2)]
+
+        try:
+            response = self.inverter.write_registers(register.value.address, chunks, slave=self.slave, skip_encode=True)
+            if type(response) == ModbusIOException:
+                logger.error('Inverter unit did not respond')
+                raise response
+        except ConnectionException:
+            logger.error('A connection error occurred')
+            raise
