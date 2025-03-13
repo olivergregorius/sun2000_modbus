@@ -461,7 +461,7 @@ class TestSun2000(unittest.TestCase):
     def test_write_uint16be(self, write_registers_mock):
         self.test_inverter.connect()
         self.test_inverter.write(BatteryEquipmentRegister.BackupPowerSOC, 10)
-        write_registers_mock.assert_called_once_with(47102, [b'\x00\x0A'], slave=1, skip_encode=True)
+        write_registers_mock.assert_called_once_with(address=47102, values=[b'\x00\x0A'], slave=1)
 
     @patch(
         'pymodbus.client.ModbusTcpClient.write_registers'
@@ -475,7 +475,7 @@ class TestSun2000(unittest.TestCase):
     def test_write_uint32be(self, write_registers_mock):
         self.test_inverter.connect()
         self.test_inverter.write(InverterEquipmentRegister.FixedActivePowerDeratedInW, 10200)
-        write_registers_mock.assert_called_once_with(40126, [b'\x00\x00', b'\x27\xD8'], slave=1, skip_encode=True)
+        write_registers_mock.assert_called_once_with(address=40126, values=[b'\x00\x00', b'\x27\xD8'], slave=1)
 
     @patch(
         'pymodbus.client.ModbusTcpClient.write_registers'
@@ -489,7 +489,7 @@ class TestSun2000(unittest.TestCase):
     def test_write_int16be(self, write_registers_mock):
         self.test_inverter.connect()
         self.test_inverter.write(BatteryEquipmentRegister.MaximumFeedGridPowerInPercentage, -90)
-        write_registers_mock.assert_called_once_with(47418, [b'\xFF\xA6'], slave=1, skip_encode=True)
+        write_registers_mock.assert_called_once_with(address=47418, values=[b'\xFF\xA6'], slave=1)
 
     @patch(
         'pymodbus.client.ModbusTcpClient.write_registers'
@@ -503,7 +503,7 @@ class TestSun2000(unittest.TestCase):
     def test_write_int32be(self, write_registers_mock):
         self.test_inverter.connect()
         self.test_inverter.write(BatteryEquipmentRegister.MaximumChargeFromGridPower, -10200)
-        write_registers_mock.assert_called_once_with(47590, [b'\xFF\xFF', b'\xD8\x28'], slave=1, skip_encode=True)
+        write_registers_mock.assert_called_once_with(address=47590, values=[b'\xFF\xFF', b'\xD8\x28'], slave=1)
 
     @patch(
         'pymodbus.client.ModbusTcpClient.write_registers'
@@ -517,7 +517,7 @@ class TestSun2000(unittest.TestCase):
     def test_write_multidata(self, write_registers_mock):
         self.test_inverter.connect()
         self.test_inverter.write(InverterEquipmentRegister.CosPhiPPnCharacteristicCurve, b'\x01\x02\x03\x04')
-        write_registers_mock.assert_called_once_with(40133, [b'\x01\x02', b'\x03\x04'], slave=1, skip_encode=True)
+        write_registers_mock.assert_called_once_with(address=40133, values=[b'\x01\x02', b'\x03\x04'], slave=1)
 
     @patch(
         'pymodbus.client.ModbusTcpClient.write_registers'
