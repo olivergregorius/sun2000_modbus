@@ -115,7 +115,7 @@ class Sun2000:
             raise ValueError('Register is not writeable')
 
         encoded_value = datatypes.encode(value, register.value.data_type)
-        chunks = [encoded_value[i:i+2] for i in range(0, len(encoded_value), 2)]
+        chunks = [int.from_bytes(encoded_value[i:i+2], byteorder='big', signed=False) for i in range(0, len(encoded_value), 2)]
 
         try:
             response = self.inverter.write_registers(address=register.value.address, values=chunks, slave=self.slave)
