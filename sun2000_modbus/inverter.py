@@ -53,7 +53,7 @@ class Sun2000:
             raise ValueError('Inverter is not connected')
 
         try:
-            register_value = self.inverter.read_holding_registers(register.value.address, register.value.quantity, slave=self.slave)
+            register_value = self.inverter.read_holding_registers(address=register.value.address, count=register.value.quantity, slave=self.slave)
             if type(register_value) == ModbusIOException:
                 logger.error('Inverter unit did not respond')
                 raise register_value
@@ -98,7 +98,7 @@ class Sun2000:
         if end_address != 0:
             quantity = end_address - start_address + 1
         try:
-            register_range_value = self.inverter.read_holding_registers(start_address, quantity, slave=self.slave)
+            register_range_value = self.inverter.read_holding_registers(address=start_address, count=quantity, slave=self.slave)
             if type(register_range_value) == ModbusIOException:
                 logger.error('Inverter unit did not respond')
                 raise register_range_value
@@ -115,10 +115,10 @@ class Sun2000:
             raise ValueError('Register is not writeable')
 
         encoded_value = datatypes.encode(value, register.value.data_type)
-        chunks = [encoded_value[i:i+2] for i in range(0, len(encoded_value), 2)]
+        chunks = [int.from_bytes(encoded_value[i:i+2], byteorder='big', signed=False) for i in range(0, len(encoded_value), 2)]
 
         try:
-            response = self.inverter.write_registers(register.value.address, chunks, slave=self.slave, skip_encode=True)
+            response = self.inverter.write_registers(address=register.value.address, values=chunks, slave=self.slave)
             if type(response) == ModbusIOException:
                 logger.error('Inverter unit did not respond')
                 raise response

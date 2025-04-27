@@ -17,7 +17,7 @@ dynamic = ["version", "description"]
 requires-python = ">=3.9"
 keywords = ["sun2000", "modbus", "photovoltaic"]
 dependencies = [
-    "pymodbus==3.7.4",
+    "pymodbus>=3.7.4",
 ]
 
 [project.urls]

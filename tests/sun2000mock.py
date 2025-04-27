@@ -34,23 +34,23 @@ MockedRegisters = {
 }
 
 
-def mock_read_holding_registers(self, address, quantity, slave):
-    return MockedResponse(address, quantity)
+def mock_read_holding_registers(self, address, count, slave):
+    return MockedResponse(address, count)
 
 
-def mock_read_holding_registers_ModbusIOException(self, address, quantity, slave):
+def mock_read_holding_registers_ModbusIOException(self, address, count, slave):
     return ModbusIOException('Requested slave is not available')
 
 
-def mock_read_holding_registers_ConnectionException(self, address, quantity, slave):
+def mock_read_holding_registers_ConnectionException(self, address, count, slave):
     raise ConnectionException('Connection unexpectedly closed')
 
 
-def mock_write_registers_ModbusIOException(self, address, value, slave, skip_encode):
+def mock_write_registers_ModbusIOException(self, address, values, slave):
     return ModbusIOException('Requested slave is not available')
 
 
-def mock_write_registers_ConnectionException(self, address, value, slave, skip_encode):
+def mock_write_registers_ConnectionException(self, address, values, slave):
     raise ConnectionException('Connection unexpectedly closed')
 
 
