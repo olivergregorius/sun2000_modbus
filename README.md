@@ -13,6 +13,7 @@ to the device's internal Wifi access point. For information about how to connect
 ## Requirements
 
 - Python >= 3.9
+- pymodbus >= 3.11.0
 
 ## Disclaimer
 
@@ -47,7 +48,7 @@ During instantiation of a Sun2000 object the following parameters are accepted:
 | port      | Port, usually 502, changed to 6607 on newer firmware versions.                                                                                 |
 | timeout   | Connection timeout                                                                                                                             |
 | wait      | Time to wait after connection before a register read can be performed. Increases stability.                                                    |
-| slave     | Number of inverter unit to be read by default, used in cascading scenarios. Defaults to 0, but some devices need it to be set to other values. |
+| device_id     | Number of inverter unit to be read by default, used in cascading scenarios. Defaults to 0, but some devices need it to be set to other values. |
 
 ### Read metrics
 
@@ -70,13 +71,13 @@ Looking at the [above example](#usage) the different methods would return the fo
 Furthermore, a method `read_range` exists accepting the address of the register to start reading and either a quantity of registers or the address of the last
 register to be read. The result is returned as byte-string for further processing.
 
-Each `read*` method accepts a `slave` argument which is used in cascading scenarios to address the desired inverter unit.
+Each `read*` method accepts a `device_id` argument which is used in cascading scenarios to address the desired inverter unit.
 
 ### Write settings
 
 For writing a register the `write` method can be used, taking the register address and the value as arguments.
 
-Furthermore, the `write` method accepts a `slave` argument which is used in cascading scenarios to address the desired inverter unit.
+Furthermore, the `write` method accepts a `device_id` argument which is used in cascading scenarios to address the desired inverter unit.
 
 ## Registers
 
