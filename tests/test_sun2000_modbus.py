@@ -1,10 +1,11 @@
 import unittest
 from unittest.mock import patch
-import sun2000mock
 
 from pymodbus.exceptions import ModbusIOException, ConnectionException
-from sun2000_modbus.inverter import Sun2000
+
+import sun2000mock
 from sun2000_modbus.datatypes import encode, decode, DataType
+from sun2000_modbus.inverter import Sun2000
 from sun2000_modbus.registers import InverterEquipmentRegister, MeterEquipmentRegister, BatteryEquipmentRegister
 
 
@@ -148,6 +149,34 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(str(cm.exception), 'Modbus Error: [Connection] Connection unexpectedly closed')
 
     @patch(
+        'pymodbus.client.ModbusTcpClient.read_holding_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_read_raw_value_without_slave_argument_takes_default(self, mock_read_holding_registers):
+        self.test_inverter.connect()
+        self.test_inverter.read_raw_value(InverterEquipmentRegister.Model)
+        mock_read_holding_registers.assert_called_once_with(address=30000, count=15, slave=1)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.read_holding_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_read_raw_value_with_slave_argument(self, mock_read_holding_registers):
+        self.test_inverter.connect()
+        self.test_inverter.read_raw_value(InverterEquipmentRegister.Model, slave=123)
+        mock_read_holding_registers.assert_called_once_with(address=30000, count=15, slave=123)
+
+    @patch(
         'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
@@ -190,6 +219,34 @@ class TestSun2000(unittest.TestCase):
         self.assertEqual(result, 10000)
 
     @patch(
+        'pymodbus.client.ModbusTcpClient.read_holding_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_read_without_slave_argument_takes_default(self, mock_read_holding_registers):
+        self.test_inverter.connect()
+        self.test_inverter.read(InverterEquipmentRegister.RatedPower)
+        mock_read_holding_registers.assert_called_once_with(address=30073, count=2, slave=1)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.read_holding_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_read_with_slave_argument(self, mock_read_holding_registers):
+        self.test_inverter.connect()
+        self.test_inverter.read(InverterEquipmentRegister.RatedPower, slave=123)
+        mock_read_holding_registers.assert_called_once_with(address=30073, count=2, slave=123)
+
+    @patch(
         'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
     )
     @patch(
@@ -202,6 +259,34 @@ class TestSun2000(unittest.TestCase):
         self.test_inverter.connect()
         result = self.test_inverter.read(InverterEquipmentRegister.RatedPower)
         self.assertEqual(result, 10000.0)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.read_holding_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_read_formatted_without_slave_argument_takes_default(self, mock_read_holding_registers):
+        self.test_inverter.connect()
+        self.test_inverter.read_formatted(InverterEquipmentRegister.RatedPower)
+        mock_read_holding_registers.assert_called_once_with(address=30073, count=2, slave=1)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.read_holding_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_read_formatted_with_slave_argument(self, mock_read_holding_registers):
+        self.test_inverter.connect()
+        self.test_inverter.read_formatted(InverterEquipmentRegister.RatedPower, slave=123)
+        mock_read_holding_registers.assert_called_once_with(address=30073, count=2, slave=123)
 
     @patch(
         'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
@@ -301,6 +386,34 @@ class TestSun2000(unittest.TestCase):
         result = self.test_inverter.read(MeterEquipmentRegister.ActivePower)
         self.assertEqual(result, 1000.0)
         self.assertTrue(isinstance(result, float))
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.read_holding_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_read_range_without_slave_argument_takes_default(self, mock_read_holding_registers):
+        self.test_inverter.connect()
+        self.test_inverter.read_range(30000, quantity=35)
+        mock_read_holding_registers.assert_called_once_with(address=30000, count=35, slave=1)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.read_holding_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_read_range_with_slave_argument(self, mock_read_holding_registers):
+        self.test_inverter.connect()
+        self.test_inverter.read_range(30000, quantity=35, slave=123)
+        mock_read_holding_registers.assert_called_once_with(address=30000, count=35, slave=123)
 
     @patch(
         'pymodbus.client.ModbusTcpClient.read_holding_registers', sun2000mock.mock_read_holding_registers
@@ -448,6 +561,34 @@ class TestSun2000(unittest.TestCase):
         with self.assertRaises(ConnectionException) as cm:
             self.test_inverter.write(BatteryEquipmentRegister.BackupPowerSOC, 10)
         self.assertEqual(str(cm.exception), 'Modbus Error: [Connection] Connection unexpectedly closed')
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.write_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_write_without_slave_argument_takes_default(self, write_registers_mock):
+        self.test_inverter.connect()
+        self.test_inverter.write(BatteryEquipmentRegister.BackupPowerSOC, 10)
+        write_registers_mock.assert_called_once_with(address=47102, values=[10], slave=1)
+
+    @patch(
+        'pymodbus.client.ModbusTcpClient.write_registers'
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.connect', sun2000mock.connect_success
+    )
+    @patch(
+        'pymodbus.client.ModbusTcpClient.is_socket_open', sun2000mock.connect_success
+    )
+    def test_write_with_slave_argument(self, write_registers_mock):
+        self.test_inverter.connect()
+        self.test_inverter.write(BatteryEquipmentRegister.BackupPowerSOC, 10, slave=123)
+        write_registers_mock.assert_called_once_with(address=47102, values=[10], slave=123)
 
     @patch(
         'pymodbus.client.ModbusTcpClient.write_registers'

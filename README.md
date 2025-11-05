@@ -41,13 +41,13 @@ The above code snippet prints out the current input power value, e.g. `8.342 kW`
 
 During instantiation of a Sun2000 object the following parameters are accepted:
 
-| Parameter | Description                                                                                                                         |
-|-----------|-------------------------------------------------------------------------------------------------------------------------------------|
-| host      | IP address                                                                                                                          |
-| port      | Port, usually 502, changed to 6607 on newer firmware versions.                                                                      |
-| timeout   | Connection timeout                                                                                                                  |
-| wait      | Time to wait after connection before a register read can be performed. Increases stability.                                         |
-| slave     | Number of inverter unit to be read, used in cascading scenarios. Defaults to 0, but some devices need it to be set to other values. |
+| Parameter | Description                                                                                                                                    |
+|-----------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| host      | IP address                                                                                                                                     |
+| port      | Port, usually 502, changed to 6607 on newer firmware versions.                                                                                 |
+| timeout   | Connection timeout                                                                                                                             |
+| wait      | Time to wait after connection before a register read can be performed. Increases stability.                                                    |
+| slave     | Number of inverter unit to be read by default, used in cascading scenarios. Defaults to 0, but some devices need it to be set to other values. |
 
 ### Read metrics
 
@@ -70,9 +70,13 @@ Looking at the [above example](#usage) the different methods would return the fo
 Furthermore, a method `read_range` exists accepting the address of the register to start reading and either a quantity of registers or the address of the last
 register to be read. The result is returned as byte-string for further processing.
 
+Each `read*` method accepts a `slave` argument which is used in cascading scenarios to address the desired inverter unit.
+
 ### Write settings
 
 For writing a register the `write` method can be used, taking the register address and the value as arguments.
+
+Furthermore, the `write` method accepts a `slave` argument which is used in cascading scenarios to address the desired inverter unit.
 
 ## Registers
 
