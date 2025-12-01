@@ -81,8 +81,8 @@ Furthermore, the `write` method accepts a `device_id` argument which is used in 
 
 ## Registers
 
-The following registers are provided by the Sun2000's Modbus interface and can be read accordingly. Documentation can be found
-[here](https://javierin.com/wp-content/uploads/sites/2/2021/09/Solar-Inverter-Modbus-Interface-Definitions.pdf).
+The following registers are provided by the Sun2000's Modbus interface and can be read and written accordingly. Documentation can be found
+[here](https://support.huawei.com/enterprise/en/doc/EDOC1100480291?idPath=258788305|254827209|258792409|22755755&section=k003).
 
 ### InverterEquipmentRegister
 
@@ -91,9 +91,9 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Model                                   | String                 |      |      | RO          |
 | SN                                      | String                 |      |      | RO          |
 | PN                                      | String                 |      |      | RO          |
-| FirmwareVerion                          | String                 |      |      | RO          |
-| SoftwareVerion                          | String                 |      |      | RO          |
-| ProtocolVerion                          | String                 |      |      | RO          |
+| FirmwareVersion                         | String                 |      |      | RO          |
+| SoftwareVersion                         | String                 |      |      | RO          |
+| ProtocolVersion                         | String                 |      |      | RO          |
 | ModelID                                 | Number                 | 1    |      | RO          |
 | NumberOfPVStrings                       | Number                 | 1    |      | RO          |
 | NumberOfMPPTrackers                     | Number                 | 1    |      | RO          |
