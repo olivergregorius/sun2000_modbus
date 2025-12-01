@@ -1,0 +1,3 @@
+tabula-py
+pandas
+ipython
