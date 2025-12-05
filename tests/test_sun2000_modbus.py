@@ -643,8 +643,8 @@ class TestSun2000(unittest.TestCase):
     )
     def test_write_int32be(self, write_registers_mock):
         self.test_inverter.connect()
-        self.test_inverter.write(BatteryEquipmentRegister.MaximumChargeFromGridPower, -10200)
-        write_registers_mock.assert_called_once_with(address=47590, values=[65535, 55336], device_id=1)
+        self.test_inverter.write(BatteryEquipmentRegister.MaximumFeedGridPowerInKW, -10200)
+        write_registers_mock.assert_called_once_with(address=47416, values=[65535, 55336], device_id=1)
 
     @patch(
         'pymodbus.client.ModbusTcpClient.write_registers'
