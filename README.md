@@ -87,14 +87,11 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 ### InverterEquipmentRegister
 
 | Name                                    | Type                   | Gain | Unit | Access Type |
-|-----------------------------------------|------------------------|------|------|-------------|
+|:----------------------------------------|:-----------------------|:-----|:-----|:------------|
 | Model                                   | String                 |      |      | RO          |
 | SN                                      | String                 |      |      | RO          |
 | PN                                      | String                 |      |      | RO          |
-| FirmwareVersion                         | String                 |      |      | RO          |
-| SoftwareVersion                         | String                 |      |      | RO          |
-| ProtocolVersion                         | String                 |      |      | RO          |
-| ModelID                                 | Number                 | 1    |      | RO          |
+| ModelID                                 | Number                 |      |      | RO          |
 | NumberOfPVStrings                       | Number                 | 1    |      | RO          |
 | NumberOfMPPTrackers                     | Number                 | 1    |      | RO          |
 | RatedPower                              | Number                 | 1    | W    | RO          |
@@ -102,12 +99,24 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | MaximumApparentPower                    | Number                 | 1000 | kVA  | RO          |
 | MaximumReactivePowerFedToTheGrid        | Number                 | 1000 | kvar | RO          |
 | MaximumReactivePowerAbsorbedFromTheGrid | Number                 | 1000 | kvar | RO          |
+| OfferingNameOfSouthboundDevice1         | String                 |      |      | RO          |
+| OfferingNameOfSouthboundDevice2         | String                 |      |      | RO          |
+| OfferingNameOfSouthboundDevice3         | String                 |      |      | RO          |
+| HardwareVersion                         | String                 | 1    |      | RO          |
+| MonitoringBoardSN                       | String                 |      |      | RO          |
+| MonitoringSoftwareVersion               | String                 |      |      | RO          |
+| MasterDSPVersion                        | String                 |      |      | RO          |
+| CPLDVersion                             | String                 |      |      | RO          |
+| AFCIVersion                             | String                 |      |      | RO          |
+| DCMBUSVersion                           | String                 |      |      | RO          |
+| REGKEY                                  | String                 | 1    |      | RO          |
 | State1                                  | Binary String/Bitfield |      |      | RO          |
 | State2                                  | Binary String/Bitfield |      |      | RO          |
 | State3                                  | Binary String/Bitfield |      |      | RO          |
 | Alarm1                                  | Binary String/Bitfield |      |      | RO          |
 | Alarm2                                  | Binary String/Bitfield |      |      | RO          |
 | Alarm3                                  | Binary String/Bitfield |      |      | RO          |
+| ESN                                     | Number                 |      |      | RO          |
 | PV1Voltage                              | Number                 | 10   | V    | RO          |
 | PV1Current                              | Number                 | 100  | A    | RO          |
 | PV2Voltage                              | Number                 | 10   | V    | RO          |
@@ -174,26 +183,39 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Efficiency                              | Number                 | 100  | %    | RO          |
 | InternalTemperature                     | Number                 | 10   | °C   | RO          |
 | InsulationResistance                    | Number                 | 1000 | MOhm | RO          |
-| DeviceStatus                            | Number                 | 1    |      | RO          |
-| FaultCode                               | Number                 | 1    |      | RO          |
-| StartupTime                             | Number                 | 1    |      | RO          |
-| ShutdownTime                            | Number                 | 1    |      | RO          |
+| DeviceStatus                            | Number                 |      |      | RO          |
+| FaultCode                               | Number                 |      |      | RO          |
+| StartupTime                             | Number                 | 1    | s    | RO          |
+| ShutdownTime                            | Number                 | 1    | s    | RO          |
 | AccumulatedEnergyYield                  | Number                 | 100  | kWh  | RO          |
 | DailyEnergyYield                        | Number                 | 100  | kWh  | RO          |
-| ActiveAdjustmentMode                    | Number                 | 1    |      | RO          |
-| ActiveAdjustmentValue                   | Number                 | 1    |      | RO          |
-| ActiveAdjustmentCommand                 | Number                 | 1    |      | RO          |
-| ReactiveAdjustmentMode                  | Number                 | 1    |      | RO          |
-| ReactiveAdjustmentValue                 | Number                 | 1    |      | RO          |
-| ReactiveAdjustmentCommand               | Number                 | 1    |      | RO          |
+| ManagementSystemStatus                  | Number                 | 1    |      | RO          |
+| AuthorizationFunction                   | Binary String/Bitfield | 1    |      | RO          |
+| LicenseStatus                           | Number                 |      |      | RO          |
+| LicenseExpirationTime                   | Number                 | 1    | s    | RO          |
+| LicenseLoadingTime                      | Number                 | 1    | s    | RO          |
+| LicenseRevocationTime                   | Number                 | 1    | s    | RO          |
+| LicenseSN                               | String                 | 1    |      | RO          |
+| RevocationCode                          | String                 | 1    |      | RO          |
+| ModuleStatus4G                          | Number                 |      |      | RO          |
+| IPAddress4G                             | Number                 | 1    |      | RO          |
+| SubnetMask4G                            | Number                 | 1    |      | RO          |
+| IMEI4G                                  | String                 | 1    |      | RO          |
+| SignalStrength4G                        | Number                 | 1    |      | RO          |
+| MaximumNumberOfPINAttempts4G            | Number                 | 1    |      | RO          |
+| PINVerificationStatus4G                 | Number                 |      |      | RO          |
+| OriginalModelName                       | Bytestring             | 1    |      | RO          |
+| ActiveAdjustmentMode                    | Bytestring             |      |      | RO          |
+| ReactiveAdjustmentMode                  | Bytestring             |      |      | RO          |
+| ChargeDischargeMode                     | Number                 |      |      | RO          |
 | PowerMeterCollectionActivePower         | Number                 | 1    | W    | RO          |
 | TotalNumberOfOptimizers                 | Number                 | 1    |      | RO          |
 | NumberOfOnlineOptimizers                | Number                 | 1    |      | RO          |
 | FeatureData                             | Number                 | 1    |      | RO          |
-| SystemTime                              | Number                 | 1    |      | RW          |
-| QUCharacteristicCurveMode               | Number                 | 1    |      | RW          |
+| SystemTime                              | Number                 | 1    | s    | RW          |
+| QUCharacteristicCurveMode               | Number                 |      |      | RW          |
 | QUDispatchTriggerPower                  | Number                 | 1    | %    | RW          |
-| FixedActivePowerDeratedInKW             | Number                 | 10   | kW   | RW          |
+| FixedActivePowerDeratedInKW             | Number                 | 1    | W    | RW          |
 | ReactivePowerCompensationInPF           | Number                 | 1000 |      | RW          |
 | ReactivePowerCompensationQS             | Number                 | 1000 |      | RW          |
 | ActivePowerPercentageDerating           | Number                 | 10   | %    | RW          |
@@ -204,186 +226,214 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | PFUCharacteristicCurve                  | Bytestring             |      |      | RW          |
 | ReactivePowerAdjustmentTime             | Number                 | 1    | s    | RW          |
 | QUPowerPercentageToExitScheduling       | Number                 | 1    | %    | RW          |
-| Startup                                 | Number                 | 1    |      | WO          |
-| Shutdown                                | Number                 | 1    |      | WO          |
-| GridCode                                | Number                 | 1    |      | RW          |
+| Startup                                 | Number                 |      |      | WO          |
+| Shutdown                                | Number                 |      |      | WO          |
+| GridCode                                | Number                 |      |      | RW          |
 | ReactivePowerChangeGradient             | Number                 | 1000 | %/s  | RW          |
 | ActivePowerChangeGradient               | Number                 | 1000 | %/s  | RW          |
 | ScheduleInstructionValidDuration        | Number                 | 1    | s    | RW          |
+| AcivePowerLimit                         | Number                 | 1    | W    | RW          |
 | TimeZone                                | Number                 | 1    | min  | RW          |
+| TLSEncryption                           | Number                 |      |      | RW          |
+| WLANWakeup                              | Number                 |      |      | RW          |
+| FastPowerScheduling                     | Number                 |      |      | RW          |
+| BatteryChargingMode                     | Number                 |      |      | RW          |
+| BatteryChargeAndDischargePower          | Number                 | 1    | W    | RW          |
+| RemoteChargeDischargeControlMode        | Number                 |      |      | RW          |
+| ScheduledTask                           | Number                 |      |      | RW          |
+| DefaultMaximumFeedInPower               | Number                 | 1    | W    | RW          |
+| DefaultActivePowerChangeGradient        | Number                 | 1000 | %/s  | RW          |
+| PeakShaving                             | Number                 |      |      | RW          |
+| BackupPowerSOCForPeakShaving            | Number                 | 10   | %    | RW          |
+| PeakPower                               | Bytestring             |      |      | RW          |
+| AIOpticalStorage                        | Number                 |      |      | RW          |
+| BackupBoxModel                          | Number                 |      |      | RW          |
+| PhaseToGroundCircuitProtection          | Number                 |      |      | RW          |
 
 ### BatteryEquipmentRegister
 
-| Name                                   | Type       | Gain | Unit    | Access Type |
-|----------------------------------------|------------|------|---------|-------------|
-| RunningStatus                          | Number     | 1    |         | RO          |
-| WorkingModeSettings                    | Number     | 1    |         | RW          |
-| BusVoltage                             | Number     | 10   | V       | RO          |
-| BusCurrent                             | Number     | 10   | A       | RO          |
-| ChargeDischargePower                   | Number     | 1    | W       | RO          |
-| MaximumChargePower                     | Number     | 1    | W       | RO          |
-| MaximumDischargePower                  | Number     | 1    | W       | RO          |
-| RatedCapacity                          | Number     | 1    | Wh      | RO          |
-| SOC                                    | Number     | 10   | %       | RO          |
-| BackupPowerSOC                         | Number     | 10   | %       | RW          |
-| TotalCharge                            | Number     | 100  | kWh     | RO          |
-| TotalDischarge                         | Number     | 100  | kWh     | RO          |
-| CurrentDayChargeCapacity               | Number     | 100  | kWh     | RO          |
-| CurrentDayDischargeCapacity            | Number     | 100  | kWh     | RO          |
-| TimeOfUseElectricityPricePeriods       | Bytestring |      |         | RW          |
-| MaximumChargingPower                   | Number     | 1    | W       | RW          |
-| MaximumDischargingPower                | Number     | 1    | W       | RW          |
-| ChargingCutoffCapacity                 | Number     | 10   | %       | RW          |
-| DischargeCutoffCapacity                | Number     | 10   | %       | RW          |
-| ForcedChargingAndDischargingPeriod     | Number     | 1    | minutes | RW          |
-| ChargeFromGridFunction                 | Number     | 1    |         | RW          |
-| GridChargeCutoffSOC                    | Number     | 10   | %       | RW          |
-| ForcibleChargeDischarge                | Number     | 1    |         | WO          |
-| FixedChargingAndDischargingPeriods     | Bytestring |      |         | RW          |
-| PowerOfChargeFromGrid                  | Number     | 0.1  | W       | RW          |
-| MaximumPowerOfChargeFromGrid           | Number     | 0.1  | W       | RW          |
-| ForcibleChargeDischargeSettingMode     | Number     | 1    |         | RW          |
-| ForcibleChargePower                    | Number     | 0.1  | W       | RW          |
-| ForcibleDischargePower                 | Number     | 0.1  | W       | RW          |
-| TimeOfUseChargingAndDischargingPeriods | Bytestring |      |         | RW          |
-| ExcessPVEnergyUseInTOU                 | Number     | 1    |         | RW          |
-| ActivePowerControlMode                 | Number     | 1    |         | RW          |
-| MaximumFeedGridPowerInKW               | Number     | 1000 | kW      | RW          |
-| MaximumFeedGridPowerInPercentage       | Number     | 10   | %       | RW          |
-| MaximumChargeFromGridPower             | Number     | 0.1  | W       | RW          |
-| SwitchToOffGrid                        | Number     | 1    |         | RW          |
-| VoltageInIndependentOperation          | Number     | 1    |         | RW          |
-| Unit1ProductModel                      | Number     | 1    |         | RW          |
-| Unit1SN                                | String     |      |         | RO          |
-| Unit1No                                | Number     | 1    |         | RW          |
-| Unit1SoftwareVersion                   | String     |      |         | RO          |
-| Unit1DCDCVersion                       | String     |      |         | RO          |
-| Unit1BMSVersion                        | String     |      |         | RO          |
-| Unit1RunningStatus                     | Number     | 1    |         | RO          |
-| Unit1WorkingMode                       | Number     | 1    |         | RO          |
-| Unit1BusVoltage                        | Number     | 10   | V       | RO          |
-| Unit1BusCurrent                        | Number     | 10   | A       | RO          |
-| Unit1BatterySOC                        | Number     | 10   | %       | RO          |
-| Unit1ChargeAndDischargePower           | Number     | 1    | W       | RO          |
-| Unit1RemainingChargeDischargeTime      | Number     | 1    | minutes | RO          |
-| Unit1RatedChargePower                  | Number     | 1    | W       | RO          |
-| Unit1RatedDischargePower               | Number     | 1    | W       | RO          |
-| Unit1CurrentDayChargeCapacity          | Number     | 100  | kWh     | RO          |
-| Unit1CurrentDayDischargeCapacity       | Number     | 100  | kWh     | RO          |
-| Unit1TotalCharge                       | Number     | 100  | kWh     | RO          |
-| Unit1TotalDischarge                    | Number     | 100  | kWh     | RO          |
-| Unit1BatteryTemperature                | Number     | 10   | °C      | RO          |
-| Unit1FaultID                           | Number     | 1    |         | RO          |
-| Unit2ProductModel                      | Number     | 1    |         | RW          |
-| Unit2SN                                | String     |      |         | RO          |
-| Unit2No                                | Number     | 1    |         | RW          |
-| Unit2SoftwareVersion                   | String     |      |         | RO          |
-| Unit2RunningStatus                     | Number     | 1    |         | RO          |
-| Unit2BusVoltage                        | Number     | 10   | V       | RO          |
-| Unit2BusCurrent                        | Number     | 10   | A       | RO          |
-| Unit2BatterySOC                        | Number     | 10   | %       | RO          |
-| Unit2ChargeAndDischargePower           | Number     | 1    | W       | RO          |
-| Unit2CurrentDayChargeCapacity          | Number     | 100  | kWh     | RO          |
-| Unit2CurrentDayDischargeCapacity       | Number     | 100  | kWh     | RO          |
-| Unit2TotalCharge                       | Number     | 100  | kWh     | RO          |
-| Unit2TotalDischarge                    | Number     | 100  | kWh     | RO          |
-| Unit2BatteryTemperature                | Number     | 10   | °C      | RO          |
-| Unit1BatteryPack1SN                    | String     |      |         | RO          |
-| Unit1BatteryPack1No                    | Number     | 1    |         | RW          |
-| Unit1BatteryPack1FirmwareVersion       | String     |      |         | RO          |
-| Unit1BatteryPack1WorkingStatus         | Number     | 1    |         | RO          |
-| Unit1BatteryPack1Voltage               | Number     | 10   | V       | RO          |
-| Unit1BatteryPack1Current               | Number     | 10   | A       | RO          |
-| Unit1BatteryPack1SOC                   | Number     | 10   | %       | RO          |
-| Unit1BatteryPack1ChargeDischargePower  | Number     | 1    | W       | RO          |
-| Unit1BatteryPack1TotalCharge           | Number     | 100  | kWh     | RO          |
-| Unit1BatteryPack1TotalDischarge        | Number     | 100  | kWh     | RO          |
-| Unit1BatteryPack1MinimumTemperature    | Number     | 10   | °C      | RO          |
-| Unit1BatteryPack1MaximumTemperature    | Number     | 10   | °C      | RO          |
-| Unit1BatteryPack2SN                    | String     |      |         | RO          |
-| Unit1BatteryPack2No                    | Number     | 1    |         | RW          |
-| Unit1BatteryPack2FirmwareVersion       | String     |      |         | RO          |
-| Unit1BatteryPack2WorkingStatus         | Number     | 1    |         | RO          |
-| Unit1BatteryPack2Voltage               | Number     | 10   | V       | RO          |
-| Unit1BatteryPack2Current               | Number     | 10   | A       | RO          |
-| Unit1BatteryPack2SOC                   | Number     | 10   | %       | RO          |
-| Unit1BatteryPack2ChargeDischargePower  | Number     | 1    | W       | RO          |
-| Unit1BatteryPack2TotalCharge           | Number     | 100  | kWh     | RO          |
-| Unit1BatteryPack2TotalDischarge        | Number     | 100  | kWh     | RO          |
-| Unit1BatteryPack2MinimumTemperature    | Number     | 10   | °C      | RO          |
-| Unit1BatteryPack2MaximumTemperature    | Number     | 10   | °C      | RO          |
-| Unit1BatteryPack3SN                    | String     |      |         | RO          |
-| Unit1BatteryPack3No                    | Number     | 1    |         | RW          |
-| Unit1BatteryPack3FirmwareVersion       | String     |      |         | RO          |
-| Unit1BatteryPack3WorkingStatus         | Number     | 1    |         | RO          |
-| Unit1BatteryPack3Voltage               | Number     | 10   | V       | RO          |
-| Unit1BatteryPack3Current               | Number     | 10   | A       | RO          |
-| Unit1BatteryPack3SOC                   | Number     | 10   | %       | RO          |
-| Unit1BatteryPack3ChargeDischargePower  | Number     | 1    | W       | RO          |
-| Unit1BatteryPack3TotalCharge           | Number     | 100  | kWh     | RO          |
-| Unit1BatteryPack3TotalDischarge        | Number     | 100  | kWh     | RO          |
-| Unit1BatteryPack3MinimumTemperature    | Number     | 10   | °C      | RO          |
-| Unit1BatteryPack3MaximumTemperature    | Number     | 10   | °C      | RO          |
-| Unit2BatteryPack1SN                    | String     |      |         | RO          |
-| Unit2BatteryPack1No                    | Number     | 1    |         | RW          |
-| Unit2BatteryPack1FirmwareVersion       | String     |      |         | RO          |
-| Unit2BatteryPack1WorkingStatus         | Number     | 1    |         | RO          |
-| Unit2BatteryPack1Voltage               | Number     | 10   | V       | RO          |
-| Unit2BatteryPack1Current               | Number     | 10   | A       | RO          |
-| Unit2BatteryPack1SOC                   | Number     | 10   | %       | RO          |
-| Unit2BatteryPack1ChargeDischargePower  | Number     | 1    | W       | RO          |
-| Unit2BatteryPack1TotalCharge           | Number     | 100  | kWh     | RO          |
-| Unit2BatteryPack1TotalDischarge        | Number     | 100  | kWh     | RO          |
-| Unit2BatteryPack1MinimumTemperature    | Number     | 10   | °C      | RO          |
-| Unit2BatteryPack1MaximumTemperature    | Number     | 10   | °C      | RO          |
-| Unit2BatteryPack2SN                    | String     |      |         | RO          |
-| Unit2BatteryPack2No                    | Number     | 1    |         | RW          |
-| Unit2BatteryPack2FirmwareVersion       | String     |      |         | RO          |
-| Unit2BatteryPack2WorkingStatus         | Number     | 1    |         | RO          |
-| Unit2BatteryPack2Voltage               | Number     | 10   | V       | RO          |
-| Unit2BatteryPack2Current               | Number     | 10   | A       | RO          |
-| Unit2BatteryPack2SOC                   | Number     | 10   | %       | RO          |
-| Unit2BatteryPack2ChargeDischargePower  | Number     | 1    | W       | RO          |
-| Unit2BatteryPack2TotalCharge           | Number     | 100  | kWh     | RO          |
-| Unit2BatteryPack2TotalDischarge        | Number     | 100  | kWh     | RO          |
-| Unit2BatteryPack2MinimumTemperature    | Number     | 10   | °C      | RO          |
-| Unit2BatteryPack2MaximumTemperature    | Number     | 10   | °C      | RO          |
-| Unit2BatteryPack3SN                    | String     |      |         | RO          |
-| Unit2BatteryPack3No                    | Number     | 1    |         | RW          |
-| Unit2BatteryPack3FirmwareVersion       | String     |      |         | RO          |
-| Unit2BatteryPack3WorkingStatus         | Number     | 1    |         | RO          |
-| Unit2BatteryPack3Voltage               | Number     | 10   | V       | RO          |
-| Unit2BatteryPack3Current               | Number     | 10   | A       | RO          |
-| Unit2BatteryPack3SOC                   | Number     | 10   | %       | RO          |
-| Unit2BatteryPack3ChargeDischargePower  | Number     | 1    | W       | RO          |
-| Unit2BatteryPack3TotalCharge           | Number     | 100  | kWh     | RO          |
-| Unit2BatteryPack3TotalDischarge        | Number     | 100  | kWh     | RO          |
-| Unit2BatteryPack3MinimumTemperature    | Number     | 10   | °C      | RO          |
-| Unit2BatteryPack3MaximumTemperature    | Number     | 10   | °C      | RO          |
+| Name                                             | Type       | Gain | Unit | Access Type |
+|:-------------------------------------------------|:-----------|:-----|:-----|:------------|
+| ProductModel                                     | Number     | 1    |      | RW          |
+| RunningStatus                                    | Number     | 1    |      | RO          |
+| WorkingModeSettings                              | Number     | 1    |      | RW          |
+| BusVoltage                                       | Number     | 10   | V    | RO          |
+| BusCurrent                                       | Number     | 10   | A    | RO          |
+| ChargeDischargePower                             | Number     | 1    | W    | RO          |
+| MaximumChargePower                               | Number     | 1    | W    | RO          |
+| MaximumDischargePower                            | Number     | 1    | W    | RO          |
+| RatedCapacity                                    | Number     | 1    | Wh   | RO          |
+| SOC                                              | Number     | 10   | %    | RO          |
+| BackupPowerSOC                                   | Number     | 10   | %    | RW          |
+| TargetSOC                                        | Number     | 10   | %    | RW          |
+| TotalCharge                                      | Number     | 100  | kWh  | RO          |
+| TotalDischarge                                   | Number     | 100  | kWh  | RO          |
+| CurrentDayChargeCapacity                         | Number     | 100  | kWh  | RO          |
+| CurrentDayDischargeCapacity                      | Number     | 100  | kWh  | RO          |
+| TimeOfUseElectricityPricePeriods                 | Bytestring | 1    |      | RW          |
+| MaximumChargingPower                             | Number     | 1    | W    | RW          |
+| MaximumDischargingPower                          | Number     | 1    | W    | RW          |
+| ChargingCutoffCapacity                           | Number     | 10   | %    | RW          |
+| DischargeCutoffCapacity                          | Number     | 10   | %    | RW          |
+| ForcedChargingAndDischargingPeriod               | Number     | 1    | mins | RW          |
+| ForcedChargingAndDischargingPower                | Number     | 1    | W    | RW          |
+| ChargeFromGridFunction                           | Number     | 1    |      | RW          |
+| GridChargeCutoffSOC                              | Number     | 10   | %    | RW          |
+| ForcibleChargeDischarge                          | Number     | 1    |      | RW          |
+| FixedChargingAndDischargingPeriods               | Bytestring | 1    |      | RW          |
+| PowerOfChargeFromGrid                            | Number     | 1    | W    | RW          |
+| MaximumPowerOfChargeFromGrid                     | Number     | 1    | W    | RW          |
+| ForcibleChargeDischargeSettingMode               | Number     | 1    |      | RW          |
+| ForcibleChargePower                              | Number     | 1    | W    | RW          |
+| ForcibleDischargePower                           | Number     | 1    | W    | RW          |
+| TimeOfUseChargingAndDischargingPeriods           | Bytestring | 1    |      | RW          |
+| ExcessPVEnergyUseInTOU                           | Number     | 1    |      | RW          |
+| ActivePowerControlMode                           | Number     | 1    |      | RW          |
+| MaximumFeedGridPowerInKW                         | Number     | 1    | W    | RW          |
+| MaximumFeedGridPowerInPercentage                 | Number     | 10   | %    | RW          |
+| MaximumChargeFromGridPower                       | Number     | 1    | W    | RW          |
+| SwitchToOffGrid                                  | Number     | 1    |      | RW          |
+| VoltageInIndependentOperation                    | Number     | 1    | V    | RW          |
+| SOHCalibrationStatus                             | Number     | 1    |      | RO          |
+| SOHCalibrationReleaseTheLowerDischargeLimitOfSOC | Number     | 10   |      | RO          |
+| SOHCalibrationEnableTheBackupPowerSOC            | Number     | 10   |      | RO          |
+| Unit1ProductModel                                | Number     | 1    |      | RW          |
+| Unit1SN                                          | String     | 1    |      | RO          |
+| Unit1No                                          | Number     | 1    |      | RW          |
+| Unit1SoftwareVersion                             | String     | 1    |      | RO          |
+| Unit1DCDCVersion                                 | String     | 1    |      | RO          |
+| Unit1BMSVersion                                  | String     | 1    |      | RO          |
+| Unit1RunningStatus                               | Number     | 1    |      | RO          |
+| Unit1WorkingMode                                 | Number     | 1    |      | RO          |
+| Unit1BusVoltage                                  | Number     | 10   | V    | RO          |
+| Unit1BusCurrent                                  | Number     | 10   | A    | RO          |
+| Unit1BatterySOC                                  | Number     | 10   | %    | RO          |
+| Unit1ChargeAndDischargePower                     | Number     | 1    | W    | RO          |
+| Unit1RemainingChargeDischargeTime                | Number     | 1    | mins | RO          |
+| Unit1RatedChargePower                            | Number     | 1    | W    | RO          |
+| Unit1RatedDischargePower                         | Number     | 1    | W    | RO          |
+| Unit1CurrentDayChargeCapacity                    | Number     | 100  | kWh  | RO          |
+| Unit1CurrentDayDischargeCapacity                 | Number     | 100  | kWh  | RO          |
+| Unit1TotalCharge                                 | Number     | 100  | kWh  | RO          |
+| Unit1TotalDischarge                              | Number     | 100  | kWh  | RO          |
+| Unit1BatteryTemperature                          | Number     | 10   | °C   | RO          |
+| Unit1FaultID                                     | Number     | 1    |      | RO          |
+| Unit2ProductModel                                | Number     | 1    |      | RW          |
+| Unit2SN                                          | Bytestring | 1    |      | RO          |
+| Unit2No                                          | Number     | 1    |      | RW          |
+| Unit2SoftwareVersion                             | String     | 1    |      | RO          |
+| Unit2RunningStatus                               | Number     | 1    |      | RO          |
+| Unit2BusVoltage                                  | Number     | 10   | V    | RO          |
+| Unit2BusCurrent                                  | Number     | 10   | A    | RO          |
+| Unit2BatterySOC                                  | Number     | 10   | %    | RO          |
+| Unit2ChargeAndDischargePower                     | Number     | 1    | W    | RO          |
+| Unit2CurrentDayChargeCapacity                    | Number     | 100  | kWh  | RO          |
+| Unit2CurrentDayDischargeCapacity                 | Number     | 100  | kWh  | RO          |
+| Unit2TotalCharge                                 | Number     | 100  | kWh  | RO          |
+| Unit2TotalDischarge                              | Number     | 100  | kWh  | RO          |
+| Unit2BatteryTemperature                          | Number     | 10   | °C   | RO          |
+| Unit1BatteryPack1SN                              | String     |      |      | RO          |
+| Unit1BatteryPack1No                              | Number     |      |      | RW          |
+| Unit1BatteryPack1FirmwareVersion                 | String     |      |      | RO          |
+| Unit1BatteryPack1WorkingStatus                   | Number     |      |      | RO          |
+| Unit1BatteryPack1Voltage                         | Number     | 10   | V    | RO          |
+| Unit1BatteryPack1Current                         | Number     | 10   | A    | RO          |
+| Unit1BatteryPack1SOC                             | Number     | 10   | %    | RO          |
+| Unit1BatteryPack1ChargeDischargePower            | Number     | 1    | W    | RO          |
+| Unit1BatteryPack1TotalCharge                     | Number     | 100  | kWh  | RO          |
+| Unit1BatteryPack1TotalDischarge                  | Number     | 100  | kWh  | RO          |
+| Unit1BatteryPack1MinimumTemperature              | Number     | 10   | °C   | RO          |
+| Unit1BatteryPack1MaximumTemperature              | Number     | 10   | °C   | RO          |
+| Unit1BatteryPack1SOHCalibrationStatus            | Number     |      |      | RO          |
+| Unit1BatteryPack2SN                              | String     |      |      | RO          |
+| Unit1BatteryPack2No                              | Number     |      |      | RW          |
+| Unit1BatteryPack2FirmwareVersion                 | String     |      |      | RO          |
+| Unit1BatteryPack2WorkingStatus                   | Number     |      |      | RO          |
+| Unit1BatteryPack2Voltage                         | Number     | 10   | V    | RO          |
+| Unit1BatteryPack2Current                         | Number     | 10   | A    | RO          |
+| Unit1BatteryPack2SOC                             | Number     | 10   | %    | RO          |
+| Unit1BatteryPack2ChargeDischargePower            | Number     | 1    | W    | RO          |
+| Unit1BatteryPack2TotalCharge                     | Number     | 100  | kWh  | RO          |
+| Unit1BatteryPack2TotalDischarge                  | Number     | 100  | kWh  | RO          |
+| Unit1BatteryPack2MinimumTemperature              | Number     | 10   | °C   | RO          |
+| Unit1BatteryPack2MaximumTemperature              | Number     | 10   | °C   | RO          |
+| Unit1BatteryPack2SOHCalibrationStatus            | Number     |      |      | RO          |
+| Unit1BatteryPack3SN                              | String     |      |      | RO          |
+| Unit1BatteryPack3No                              | Number     |      |      | RW          |
+| Unit1BatteryPack3FirmwareVersion                 | String     |      |      | RO          |
+| Unit1BatteryPack3WorkingStatus                   | Number     |      |      | RO          |
+| Unit1BatteryPack3Voltage                         | Number     | 10   | V    | RO          |
+| Unit1BatteryPack3Current                         | Number     | 10   | A    | RO          |
+| Unit1BatteryPack3SOC                             | Number     | 10   | %    | RO          |
+| Unit1BatteryPack3ChargeDischargePower            | Number     | 1    | W    | RO          |
+| Unit1BatteryPack3TotalCharge                     | Number     | 100  | kWh  | RO          |
+| Unit1BatteryPack3TotalDischarge                  | Number     | 100  | kWh  | RO          |
+| Unit1BatteryPack3MinimumTemperature              | Number     | 10   | °C   | RO          |
+| Unit1BatteryPack3MaximumTemperature              | Number     | 10   | °C   | RO          |
+| Unit1BatteryPack3SOHCalibrationStatus            | Number     |      |      | RO          |
+| Unit2BatteryPack1SN                              | String     |      |      | RO          |
+| Unit2BatteryPack1No                              | Number     |      |      | RW          |
+| Unit2BatteryPack1FirmwareVersion                 | String     |      |      | RO          |
+| Unit2BatteryPack1WorkingStatus                   | Number     |      |      | RO          |
+| Unit2BatteryPack1Voltage                         | Number     | 10   | V    | RO          |
+| Unit2BatteryPack1Current                         | Number     | 10   | A    | RO          |
+| Unit2BatteryPack1SOC                             | Number     | 10   | %    | RO          |
+| Unit2BatteryPack1ChargeDischargePower            | Number     | 1    | W    | RO          |
+| Unit2BatteryPack1TotalCharge                     | Number     | 100  | kWh  | RO          |
+| Unit2BatteryPack1TotalDischarge                  | Number     | 100  | kWh  | RO          |
+| Unit2BatteryPack1MinimumTemperature              | Number     | 10   | °C   | RO          |
+| Unit2BatteryPack1MaximumTemperature              | Number     | 10   | °C   | RO          |
+| Unit2BatteryPack1SOHCalibrationStatus            | Number     |      |      | RO          |
+| Unit2BatteryPack2SN                              | String     |      |      | RO          |
+| Unit2BatteryPack2No                              | Number     |      |      | RW          |
+| Unit2BatteryPack2FirmwareVersion                 | String     |      |      | RO          |
+| Unit2BatteryPack2WorkingStatus                   | Number     |      |      | RO          |
+| Unit2BatteryPack2Voltage                         | Number     | 10   | V    | RO          |
+| Unit2BatteryPack2Current                         | Number     | 10   | A    | RO          |
+| Unit2BatteryPack2SOC                             | Number     | 10   | %    | RO          |
+| Unit2BatteryPack2ChargeDischargePower            | Number     | 1    | W    | RO          |
+| Unit2BatteryPack2TotalCharge                     | Number     | 100  | kWh  | RO          |
+| Unit2BatteryPack2TotalDischarge                  | Number     | 100  | kWh  | RO          |
+| Unit2BatteryPack2MinimumTemperature              | Number     | 10   | °C   | RO          |
+| Unit2BatteryPack2MaximumTemperature              | Number     | 10   | °C   | RO          |
+| Unit2BatteryPack2SOHCalibrationStatus            | Number     |      |      | RO          |
+| Unit2BatteryPack3SN                              | String     |      |      | RO          |
+| Unit2BatteryPack3No                              | Number     |      |      | RW          |
+| Unit2BatteryPack3FirmwareVersion                 | String     |      |      | RO          |
+| Unit2BatteryPack3WorkingStatus                   | Number     |      |      | RO          |
+| Unit2BatteryPack3Voltage                         | Number     | 10   | V    | RO          |
+| Unit2BatteryPack3Current                         | Number     | 10   | A    | RO          |
+| Unit2BatteryPack3SOC                             | Number     | 10   | %    | RO          |
+| Unit2BatteryPack3ChargeDischargePower            | Number     | 1    | W    | RO          |
+| Unit2BatteryPack3TotalCharge                     | Number     | 100  | kWh  | RO          |
+| Unit2BatteryPack3TotalDischarge                  | Number     | 100  | kWh  | RO          |
+| Unit2BatteryPack3MinimumTemperature              | Number     | 10   | °C   | RO          |
+| Unit2BatteryPack3MaximumTemperature              | Number     | 10   | °C   | RO          |
+| Unit2BatteryPack3SOHCalibrationStatus            | Number     |      |      | RO          |
 
 ### MeterEquipmentRegister
 
-| Name                      | Type   | Gain | Unit | Access Type |
-|---------------------------|--------|------|------|-------------|
-| MeterStatus               | Number | 1    |      | RO          |
-| APhaseVoltage             | Number | 10   | V    | RO          |
-| BPhaseVoltage             | Number | 10   | V    | RO          |
-| CPhaseVoltage             | Number | 10   | V    | RO          |
-| APhaseCurrent             | Number | 100  | A    | RO          |
-| BPhaseCurrent             | Number | 100  | A    | RO          |
-| CPhaseCurrent             | Number | 100  | A    | RO          |
-| ActivePower               | Number | 1    | W    | RO          |
-| ReactivePower             | Number | 1    | var  | RO          |
-| PowerFactor               | Number | 1000 |      | RO          |
-| GridFrequency             | Number | 100  | Hz   | RO          |
-| PositiveActiveElectricity | Number | 100  | kWh  | RO          |
-| ReverseActivePower        | Number | 100  | kWh  | RO          |
-| AccumulatedReactivePower  | Number | 100  | kvar | RO          |
-| MeterType                 | Number | 1    |      | RO          |
-| ABLineVoltage             | Number | 10   | V    | RO          |
-| BCLineVoltage             | Number | 10   | V    | RO          |
-| CALineVoltage             | Number | 10   | V    | RO          |
-| APhaseActivePower         | Number | 1    | W    | RO          |
-| BPhaseActivePower         | Number | 1    | W    | RO          |
-| CPhaseActivePower         | Number | 1    | W    | RO          |
-| MeterModelDetectionResult | Number | 1    |      | RO          |
+| Name                      | Type   | Gain | Unit  | Access Type |
+|:--------------------------|:-------|:-----|:------|:------------|
+| MeterType                 | Number | 1    |       | RO          |
+| MeterStatus               | Number | 1    |       | RO          |
+| MeterModelDetectionResult | Number | 1    |       | RO          |
+| APhaseVoltage             | Number | 10   | V     | RO          |
+| BPhaseVoltage             | Number | 10   | V     | RO          |
+| CPhaseVoltage             | Number | 10   | V     | RO          |
+| APhaseCurrent             | Number | 100  | A     | RO          |
+| BPhaseCurrent             | Number | 100  | A     | RO          |
+| CPhaseCurrent             | Number | 100  | A     | RO          |
+| ActivePower               | Number | 1    | W     | RO          |
+| ReactivePower             | Number | 1    | var   | RO          |
+| PowerFactor               | Number | 1000 |       | RO          |
+| GridFrequency             | Number | 100  | Hz    | RO          |
+| PositiveActiveElectricity | Number | 100  | kWh   | RO          |
+| ReverseActivePower        | Number | 100  | kWh   | RO          |
+| AccumulatedReactivePower  | Number | 100  | kvarh | RO          |
+| ABLineVoltage             | Number | 10   | V     | RO          |
+| BCLineVoltage             | Number | 10   | V     | RO          |
+| CALineVoltage             | Number | 10   | V     | RO          |
+| APhaseActivePower         | Number | 1    | W     | RO          |
+| BPhaseActivePower         | Number | 1    | W     | RO          |
+| CPhaseActivePower         | Number | 1    | W     | RO          |
