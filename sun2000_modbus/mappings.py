@@ -101,87 +101,78 @@ BackupBoxModel = {
 }
 
 RunningStatus = {
-    0: 'offline',
-    1: 'standby',
-    2: 'running',
-    3: 'fault',
-    4: 'sleep mode',
-}
-
-WorkingMode = {
-    0: 'none',
-    1: 'Forcible charge/discharge',
-    2: 'Time of Use (LG)',
-    3: 'Fixed charge/discharge',
-    4: 'Maximise self consumption',
-    5: 'Fully fed to grid',
-    6: 'Time of Use (LUNA2000)',
-}
-
-ProductModel = {
-    0: 'None',
-    1: 'LG-RESU',
-    2: 'HUAWEI-LUNA2000',
+    0x0000: 'offline',
+    0x0001: 'standby',
+    0x0002: 'running',
+    0x0003: 'fault',
+    0x0004: 'sleep mode',
 }
 
 WorkingModeSettings = {
-    0: 'Adaptive',
-    1: 'Fixed charge/discharge',
-    2: 'Maximise self consumption',
-    3: 'Time of Use (LG)',
-    4: 'Fully fed to grid',
-    5: 'Time of Use (LUNA2000)',
-}
-
-ChargeFromGridFunction = {
-    0: 'Disable',
-    1: 'Enable',
+    0x0000: 'Adaptive',
+    0x0001: 'Fixed charge/discharge',
+    0x0002: 'Maximise self consumption',
+    0x0003: 'Time of Use (LG)',
+    0x0004: 'Fully fed to grid',
+    0x0005: 'Time of Use (LUNA2000)',
 }
 
 ForcibleChargeDischarge = {
-    0: 'Stop',
-    1: 'Charge',
-    2: 'Discharge',
-}
-
-ForcibleChargeDischargeSettingMode = {
-    0: 'Duration',
+    0x0000: 'Stop',
+    0x0001: 'Charge',
+    0x0002: 'Discharge',
 }
 
 ExcessPVEnergyUseInTOU = {
-    0: 'Fed to grid',
-    1: 'Charge',
-}
-
-SwitchToOffGrid = {
-    0: 'Switch from grid-tied to off-grid',
-}
-
-VoltageIndependentOperation = {
-    0: '101 V',
-    1: '202 V',
-}
-
-MeterStatus = {
-    0: 'offline',
-    1: 'online',
-}
-
-MeterType = {
-    0: 'single-phase',
-    1: 'three-phase',
-}
-
-MeterModelDetectionResult = {
-    0: 'being identified',
-    1: 'The selected model is the same as the actual model of the connected meter',
-    2: 'The selected model is different from the actual model of the connected meter',
+    0x0000: 'Fed to grid',
+    0x0001: 'Charge',
 }
 
 ActivePowerControlMode = {
-    0: 'Unlimited',
-    1: 'DI active scheduling',
-    5: 'Zero power grid connection',
-    6: 'Powerlimited grid connection (kW)',
-    7: 'Powerlimited grid connection (%)',
+    0x0000: 'Unlimited',
+    0x0001: 'DI active scheduling',
+    0x0005: 'Zero power grid connection',
+    0x0006: 'Power-limited grid connection (kW)',
+    0x0007: 'Power-limited grid connection (%)',
+}
+
+VoltageIndependentOperation = {
+    0x0000: '101 V',
+    0x0001: '202 V',
+}
+
+ProductModel = {
+    0x0000: 'None',
+    0x0001: 'LG-RESU',
+    0x0002: 'HUAWEI-LUNA2000',
+}
+
+WorkingMode = {
+    0x0000: 'none',
+    0x0001: 'Forcible charge/discharge',
+    0x0002: 'Time of Use (LG)',
+    0x0003: 'Fixed charge/discharge',
+    0x0004: 'Maximise self consumption',
+    0x0005: 'Fully fed to grid',
+    0x0006: 'Time of Use (LUNA2000)',
+    0x0007: 'Remote scheduling - maximum self-use',
+    0x0008: 'Remote scheduling - full internet access',
+    0x0009: 'Remote scheduling - TOU',
+    0x000A: 'AI energy management and scheduling',
+}
+
+MeterType = {
+    0x0000: 'single-phase',
+    0x0001: 'three-phase',
+}
+
+MeterStatus = {
+    0x0000: 'offline',
+    0x0001: 'normal',
+}
+
+MeterModelDetectionResult = {
+    0x0000: 'being identified',
+    0x0001: 'The selected model is the same as the actual model of the connected meter',
+    0x0002: 'The selected model is different from the actual model of the connected meter',
 }
