@@ -5,6 +5,7 @@ from pymodbus.client import ModbusTcpClient
 from pymodbus.exceptions import ModbusIOException, ConnectionException
 
 from . import datatypes
+from .datatypes import DataType
 from .registers import AccessType
 
 logger = logging.getLogger(__name__)
@@ -69,7 +70,7 @@ class Sun2000:
     def read(self, register, device_id=None):
         raw_value = self.read_raw_value(register, device_id)
 
-        if register.value.gain is None or register.value.gain == 1:
+        if register.value.gain is None or register.value.data_type in [DataType.STRING, DataType.BITFIELD16, DataType.BITFIELD32, DataType.MULTIDATA]:
             return raw_value
         else:
             return raw_value / register.value.gain
@@ -109,7 +110,7 @@ class Sun2000:
             logger.error('A connection error occurred')
             raise
         except Exception:
-            logger.error(f'An error occurred during reading address {register.value.address}')
+            logger.error(f'An error occurred during reading starting from address {start_address}')
             raise
 
         return datatypes.decode(register_range_value.encode()[1:], datatypes.DataType.MULTIDATA)
