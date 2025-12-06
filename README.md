@@ -215,7 +215,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | SystemTime                              | Number                 | 1    | s    | RW          |
 | QUCharacteristicCurveMode               | Number                 |      |      | RW          |
 | QUDispatchTriggerPower                  | Number                 | 1    | %    | RW          |
-| FixedActivePowerDeratedInKW             | Number                 | 1    | W    | RW          |
+| FixedActivePowerDeratedInKW             | Number                 | 10   | kW   | RW          |
 | ReactivePowerCompensationInPF           | Number                 | 1000 |      | RW          |
 | ReactivePowerCompensationQS             | Number                 | 1000 |      | RW          |
 | ActivePowerPercentageDerating           | Number                 | 10   | %    | RW          |
