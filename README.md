@@ -289,7 +289,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | TimeOfUseChargingAndDischargingPeriods           | Bytestring | 1    |      | RW          |
 | ExcessPVEnergyUseInTOU                           | Number     | 1    |      | RW          |
 | ActivePowerControlMode                           | Number     | 1    |      | RW          |
-| MaximumFeedGridPowerInKW                         | Number     | 1    | W    | RW          |
+| MaximumFeedGridPowerInW                          | Number     | 1    | W    | RW          |
 | MaximumFeedGridPowerInPercentage                 | Number     | 10   | %    | RW          |
 | MaximumChargeFromGridPower                       | Number     | 1    | W    | RW          |
 | SwitchToOffGrid                                  | Number     | 1    |      | RW          |
