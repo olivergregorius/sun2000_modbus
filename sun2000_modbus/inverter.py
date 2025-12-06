@@ -60,13 +60,16 @@ class Sun2000:
         except ConnectionException:
             logger.error('A connection error occurred')
             raise
+        except Exception:
+            logger.error(f'An error occurred during reading address {register.value.address}')
+            raise
 
         return datatypes.decode(register_value.encode()[1:], register.value.data_type)
 
     def read(self, register, device_id=None):
         raw_value = self.read_raw_value(register, device_id)
 
-        if register.value.gain is None:
+        if register.value.gain is None or register.value.gain == 1:
             return raw_value
         else:
             return raw_value / register.value.gain
@@ -104,6 +107,9 @@ class Sun2000:
                 raise register_range_value
         except ConnectionException:
             logger.error('A connection error occurred')
+            raise
+        except Exception:
+            logger.error(f'An error occurred during reading address {register.value.address}')
             raise
 
         return datatypes.decode(register_range_value.encode()[1:], datatypes.DataType.MULTIDATA)
