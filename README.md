@@ -102,14 +102,14 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | OfferingNameOfSouthboundDevice1         | String                 |      |      | RO          |
 | OfferingNameOfSouthboundDevice2         | String                 |      |      | RO          |
 | OfferingNameOfSouthboundDevice3         | String                 |      |      | RO          |
-| HardwareVersion                         | String                 | 1    |      | RO          |
+| HardwareVersion                         | String                 |      |      | RO          |
 | MonitoringBoardSN                       | String                 |      |      | RO          |
 | MonitoringSoftwareVersion               | String                 |      |      | RO          |
 | MasterDSPVersion                        | String                 |      |      | RO          |
 | CPLDVersion                             | String                 |      |      | RO          |
 | AFCIVersion                             | String                 |      |      | RO          |
 | DCMBUSVersion                           | String                 |      |      | RO          |
-| REGKEY                                  | String                 | 1    |      | RO          |
+| REGKEY                                  | String                 |      |      | RO          |
 | State1                                  | Binary String/Bitfield |      |      | RO          |
 | State2                                  | Binary String/Bitfield |      |      | RO          |
 | State3                                  | Binary String/Bitfield |      |      | RO          |
@@ -190,21 +190,21 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | AccumulatedEnergyYield                  | Number                 | 100  | kWh  | RO          |
 | DailyEnergyYield                        | Number                 | 100  | kWh  | RO          |
 | ManagementSystemStatus                  | Number                 | 1    |      | RO          |
-| AuthorizationFunction                   | Binary String/Bitfield | 1    |      | RO          |
+| AuthorizationFunction                   | Binary String/Bitfield |      |      | RO          |
 | LicenseStatus                           | Number                 |      |      | RO          |
 | LicenseExpirationTime                   | Number                 | 1    | s    | RO          |
 | LicenseLoadingTime                      | Number                 | 1    | s    | RO          |
 | LicenseRevocationTime                   | Number                 | 1    | s    | RO          |
-| LicenseSN                               | String                 | 1    |      | RO          |
-| RevocationCode                          | String                 | 1    |      | RO          |
+| LicenseSN                               | String                 |      |      | RO          |
+| RevocationCode                          | String                 |      |      | RO          |
 | ModuleStatus4G                          | Number                 |      |      | RO          |
 | IPAddress4G                             | Number                 | 1    |      | RO          |
 | SubnetMask4G                            | Number                 | 1    |      | RO          |
-| IMEI4G                                  | String                 | 1    |      | RO          |
+| IMEI4G                                  | String                 |      |      | RO          |
 | SignalStrength4G                        | Number                 | 1    |      | RO          |
 | MaximumNumberOfPINAttempts4G            | Number                 | 1    |      | RO          |
 | PINVerificationStatus4G                 | Number                 |      |      | RO          |
-| OriginalModelName                       | Bytestring             | 1    |      | RO          |
+| OriginalModelName                       | Bytestring             |      |      | RO          |
 | ActiveAdjustmentMode                    | Bytestring             |      |      | RO          |
 | ReactiveAdjustmentMode                  | Bytestring             |      |      | RO          |
 | ChargeDischargeMode                     | Number                 |      |      | RO          |
@@ -232,7 +232,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | ReactivePowerChangeGradient             | Number                 | 1000 | %/s  | RW          |
 | ActivePowerChangeGradient               | Number                 | 1000 | %/s  | RW          |
 | ScheduleInstructionValidDuration        | Number                 | 1    | s    | RW          |
-| AcivePowerLimit                         | Number                 | 1    | W    | RW          |
+| ActivePowerLimit                        | Number                 | 1    | W    | RW          |
 | TimeZone                                | Number                 | 1    | min  | RW          |
 | TLSEncryption                           | Number                 |      |      | RW          |
 | WLANWakeup                              | Number                 |      |      | RW          |
@@ -319,7 +319,7 @@ The following registers are provided by the Sun2000's Modbus interface and can b
 | Unit1BatteryTemperature                          | Number     | 10   | °C   | RO          |
 | Unit1FaultID                                     | Number     | 1    |      | RO          |
 | Unit2ProductModel                                | Number     | 1    |      | RW          |
-| Unit2SN                                          | Bytestring | 1    |      | RO          |
+| Unit2SN                                          | String     | 1    |      | RO          |
 | Unit2No                                          | Number     | 1    |      | RW          |
 | Unit2SoftwareVersion                             | String     | 1    |      | RO          |
 | Unit2RunningStatus                               | Number     | 1    |      | RO          |
