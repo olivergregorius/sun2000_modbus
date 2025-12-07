@@ -17,6 +17,8 @@ DeviceStatus = {
     0x0307:	'Shutdown: rapid shutdown',
     0x030A:	'Shutdown: commanded rapid shutdown',
     0x030B:	'Shutdown: the backup power system is abnormal',
+    # 0x030C is not officially documented, yet, but the Huawei support declared it as a valid status (https://www.photovoltaikforum.com/thread/160098-what-s-up-huawei/?postID=4478596#post4478596)
+    0x030C:	'Shutdown: battery end-of-discharge SOC',
     0x0401:	'Grid scheduling: cosPhi-P curve',
     0x0402:	'Grid scheduling: Q-U curve',
     0x0403:	'Grid scheduling: PF-U curve',
