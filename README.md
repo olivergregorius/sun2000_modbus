@@ -32,8 +32,14 @@ from sun2000_modbus import registers
 inverter = inverter.Sun2000(host='192.168.8.1')
 inverter.connect()
 if inverter.isConnected():
-    input_power = inverter.read_formatted(registers.InverterEquipmentRegister.InputPower)
-    print(input_power)
+    try:
+        input_power = inverter.read_formatted(registers.InverterEquipmentRegister.InputPower)
+        print(input_power)
+    finally:
+        try:
+            sun.disconnect()
+        finally:
+            pass
 ```
 
 The above code snippet prints out the current input power value, e.g. `8.342 kW`.
