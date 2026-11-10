@@ -6,7 +6,7 @@ class MockedResponse:
         self.address = address
         self.quantity = quantity
 
-    def encode(self):
+    def x_encode(self):
         return MockedRegisters[(self.address, self.quantity)]
 
 
