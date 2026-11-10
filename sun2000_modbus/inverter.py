@@ -55,9 +55,9 @@ class Sun2000:
 
         try:
             register_value = self.inverter.read_holding_registers(address=register.value.address, count=register.value.quantity, device_id=self.device_id if device_id is None else device_id)
-            if type(register_value) == ModbusIOException:
+            if register_value.isError():
                 logger.error('Inverter unit did not respond')
-                raise register_value
+                raise ModbusIOException('Requested device is not available')
         except ConnectionException:
             logger.error('A connection error occurred')
             raise
@@ -103,9 +103,9 @@ class Sun2000:
             quantity = end_address - start_address + 1
         try:
             register_range_value = self.inverter.read_holding_registers(address=start_address, count=quantity, device_id=self.device_id if device_id is None else device_id)
-            if type(register_range_value) == ModbusIOException:
+            if register_range_value.isError():
                 logger.error('Inverter unit did not respond')
-                raise register_range_value
+                raise ModbusIOException('Requested device is not available')
         except ConnectionException:
             logger.error('A connection error occurred')
             raise
@@ -126,9 +126,9 @@ class Sun2000:
 
         try:
             response = self.inverter.write_registers(address=register.value.address, values=chunks, device_id=self.device_id if device_id is None else device_id)
-            if type(response) == ModbusIOException:
+            if response.isError():
                 logger.error('Inverter unit did not respond')
-                raise response
+                raise ModbusIOException('Requested device is not available')
         except ConnectionException:
             logger.error('A connection error occurred')
             raise
