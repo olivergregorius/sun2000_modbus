@@ -9,6 +9,9 @@ class MockedResponse:
     def x_encode(self):
         return MockedRegisters[(self.address, self.quantity)]
 
+    def isError(self):
+        return False
+
 
 MockedRegisters = {
     # InverterEquipmentRegister.Model - 'SUN2000'
