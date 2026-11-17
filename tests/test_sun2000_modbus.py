@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from pymodbus.exceptions import ModbusIOException, ConnectionException
 
-import sun2000mock
+from tests import sun2000mock
 from sun2000_modbus.datatypes import encode, decode, DataType
 from sun2000_modbus.inverter import Sun2000
 from sun2000_modbus.registers import InverterEquipmentRegister, MeterEquipmentRegister, BatteryEquipmentRegister
