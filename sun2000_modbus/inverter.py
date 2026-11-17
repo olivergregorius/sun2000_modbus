@@ -65,7 +65,7 @@ class Sun2000:
             logger.error(f'An error occurred during reading address {register.value.address}')
             raise
 
-        return datatypes.decode(register_value.encode()[1:], register.value.data_type)
+        return datatypes.decode(register_value.x_encode()[1:], register.value.data_type)
 
     def read(self, register, device_id=None):
         raw_value = self.read_raw_value(register, device_id)
@@ -113,7 +113,7 @@ class Sun2000:
             logger.error(f'An error occurred during reading starting from address {start_address}')
             raise
 
-        return datatypes.decode(register_range_value.encode()[1:], datatypes.DataType.MULTIDATA)
+        return datatypes.decode(register_range_value.x_encode()[1:], datatypes.DataType.MULTIDATA)
 
     def write(self, register, value, device_id=None):
         if not self.isConnected():
