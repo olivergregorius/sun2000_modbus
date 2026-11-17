@@ -159,6 +159,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_raw_value_without_device_id_argument_takes_default(self, mock_read_holding_registers):
         self.test_inverter.connect()
+        mock_read_holding_registers.return_value.isError.return_value = False
         self.test_inverter.read_raw_value(InverterEquipmentRegister.Model)
         mock_read_holding_registers.assert_called_once_with(address=30000, count=15, device_id=1)
 
@@ -173,6 +174,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_raw_value_with_device_id_argument(self, mock_read_holding_registers):
         self.test_inverter.connect()
+        mock_read_holding_registers.return_value.isError.return_value = False
         self.test_inverter.read_raw_value(InverterEquipmentRegister.Model, device_id=123)
         mock_read_holding_registers.assert_called_once_with(address=30000, count=15, device_id=123)
 
@@ -229,6 +231,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_without_device_id_argument_takes_default(self, mock_read_holding_registers):
         self.test_inverter.connect()
+        mock_read_holding_registers.return_value.isError.return_value = False
         self.test_inverter.read(InverterEquipmentRegister.RatedPower)
         mock_read_holding_registers.assert_called_once_with(address=30073, count=2, device_id=1)
 
@@ -243,6 +246,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_with_device_id_argument(self, mock_read_holding_registers):
         self.test_inverter.connect()
+        mock_read_holding_registers.return_value.isError.return_value = False
         self.test_inverter.read(InverterEquipmentRegister.RatedPower, device_id=123)
         mock_read_holding_registers.assert_called_once_with(address=30073, count=2, device_id=123)
 
@@ -271,6 +275,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_formatted_without_device_id_argument_takes_default(self, mock_read_holding_registers):
         self.test_inverter.connect()
+        mock_read_holding_registers.return_value.isError.return_value = False
         self.test_inverter.read_formatted(InverterEquipmentRegister.RatedPower)
         mock_read_holding_registers.assert_called_once_with(address=30073, count=2, device_id=1)
 
@@ -285,6 +290,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_formatted_with_device_id_argument(self, mock_read_holding_registers):
         self.test_inverter.connect()
+        mock_read_holding_registers.return_value.isError.return_value = False
         self.test_inverter.read_formatted(InverterEquipmentRegister.RatedPower, device_id=123)
         mock_read_holding_registers.assert_called_once_with(address=30073, count=2, device_id=123)
 
@@ -398,6 +404,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_range_without_device_id_argument_takes_default(self, mock_read_holding_registers):
         self.test_inverter.connect()
+        mock_read_holding_registers.return_value.isError.return_value = False
         self.test_inverter.read_range(30000, quantity=35)
         mock_read_holding_registers.assert_called_once_with(address=30000, count=35, device_id=1)
 
@@ -412,6 +419,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_read_range_with_device_id_argument(self, mock_read_holding_registers):
         self.test_inverter.connect()
+        mock_read_holding_registers.return_value.isError.return_value = False
         self.test_inverter.read_range(30000, quantity=35, device_id=123)
         mock_read_holding_registers.assert_called_once_with(address=30000, count=35, device_id=123)
 
@@ -573,6 +581,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_write_without_device_id_argument_takes_default(self, write_registers_mock):
         self.test_inverter.connect()
+        write_registers_mock.return_value.isError.return_value = False
         self.test_inverter.write(BatteryEquipmentRegister.BackupPowerSOC, 10)
         write_registers_mock.assert_called_once_with(address=47102, values=[10], device_id=1)
 
@@ -587,6 +596,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_write_with_device_id_argument(self, write_registers_mock):
         self.test_inverter.connect()
+        write_registers_mock.return_value.isError.return_value = False
         self.test_inverter.write(BatteryEquipmentRegister.BackupPowerSOC, 10, device_id=123)
         write_registers_mock.assert_called_once_with(address=47102, values=[10], device_id=123)
 
@@ -601,6 +611,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_write_uint16be(self, write_registers_mock):
         self.test_inverter.connect()
+        write_registers_mock.return_value.isError.return_value = False
         self.test_inverter.write(BatteryEquipmentRegister.BackupPowerSOC, 10)
         write_registers_mock.assert_called_once_with(address=47102, values=[10], device_id=1)
 
@@ -615,6 +626,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_write_uint32be(self, write_registers_mock):
         self.test_inverter.connect()
+        write_registers_mock.return_value.isError.return_value = False
         self.test_inverter.write(InverterEquipmentRegister.FixedActivePowerDeratedInW, 10200)
         write_registers_mock.assert_called_once_with(address=40126, values=[0, 10200], device_id=1)
 
@@ -629,6 +641,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_write_int16be(self, write_registers_mock):
         self.test_inverter.connect()
+        write_registers_mock.return_value.isError.return_value = False
         self.test_inverter.write(BatteryEquipmentRegister.MaximumFeedGridPowerInPercentage, -90)
         write_registers_mock.assert_called_once_with(address=47418, values=[65446], device_id=1)
 
@@ -643,6 +656,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_write_int32be(self, write_registers_mock):
         self.test_inverter.connect()
+        write_registers_mock.return_value.isError.return_value = False
         self.test_inverter.write(BatteryEquipmentRegister.MaximumFeedGridPowerInW, -10200)
         write_registers_mock.assert_called_once_with(address=47416, values=[65535, 55336], device_id=1)
 
@@ -657,6 +671,7 @@ class TestSun2000(unittest.TestCase):
     )
     def test_write_multidata(self, write_registers_mock):
         self.test_inverter.connect()
+        write_registers_mock.return_value.isError.return_value = False
         self.test_inverter.write(InverterEquipmentRegister.CosPhiPPnCharacteristicCurve, b'\x01\x02\x03\x04')
         write_registers_mock.assert_called_once_with(address=40133, values=[258, 772], device_id=1)
 
