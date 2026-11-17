@@ -37,7 +37,7 @@ if inverter.isConnected():
         print(input_power)
     finally:
         try:
-            sun.disconnect()
+            inverter.disconnect()
         finally:
             pass
 ```
